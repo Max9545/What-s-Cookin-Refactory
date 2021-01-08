@@ -27,7 +27,12 @@ describe('Cookbook', () => {
       expect(cookbook.findRecipe('Sesame Cookies')[0]).to.deep.equal(recipeData[7]);
     });
 
+    it('Should be able to filter through its array by tag', () => {
+      expect(cookbook.findRecipe('starter').length).to.equal(9);
+    })
+
     it('Should have no recipies with the same name', () => {
+      console.log(cookbook.findRecipe('Gluten Free Whole Grain ]ad'))
       expect(cookbook.findRecipe('Gluten Free Whole Grain Bread').length).to.equal(1);
     })
   });
