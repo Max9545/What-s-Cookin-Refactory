@@ -24,7 +24,13 @@ describe('Cookbook', () => {
     });
 
     it('Should be able to filter through its array by name', () => {
-      expect(cookbook.findRecipe('Sesame Cookies').length).to.equal(1);
+
+      expect(cookbook.findRecipe('Sesame Cookies')[0]).to.deep.equal(recipeData[7]);
+
     });
+
+    it('Should have no recipies with the same name'), () => {
+      expect(cookbook.findRecipe('Gluten Free Whole Grain Bread'))
+    }
   });
 })
