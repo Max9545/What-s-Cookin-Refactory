@@ -1,17 +1,20 @@
-import {expect} from 'chai';
+import {
+  expect
+} from 'chai';
 
 
 import recipeData from '../src/data/recipes';
 import Cookbook from '../src/cookbook';
 
-let cookbook;
 
-describe('User', () => {
+describe('Cookbook', () => {
+  let cookbook;
+
   beforeEach(() => {
     cookbook = new Cookbook(recipeData);
   });
 
-  it('Should have an array of all recipes', () => {
+  it('Should have a populated array of recipes', () => {
     expect(cookbook.recipes).to.be.an('array');
   });
 
