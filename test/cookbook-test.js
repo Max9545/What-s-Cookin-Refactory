@@ -16,6 +16,7 @@ describe('Cookbook', () => {
 
   it('Should have a populated array of recipes', () => {
     expect(cookbook.recipes).to.be.an('array');
+    expect(cookbook.recipes).to.deep.equal(recipeData);
   });
 
   describe('findRecipe', () => {
@@ -32,8 +33,7 @@ describe('Cookbook', () => {
     })
 
     it('Should have no recipies with the same name', () => {
-      console.log(cookbook.findRecipe('Gluten Free Whole Grain ]ad'))
-      expect(cookbook.findRecipe('Gluten Free Whole Grain Bread').length).to.equal(1);
+      expect(cookbook.findRecipe('Loaded Chocolate Chip Pudding Cookie Cups').length).to.equal(1);
     })
   });
 })
