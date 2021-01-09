@@ -16,6 +16,7 @@ const cardArea = document.querySelector('.all-cards');
 
 const cookbook = new Cookbook(recipeData);
 let user, pantry;
+//pantry is declared but never used.
 
 window.onload = onStartup();
 
@@ -85,14 +86,16 @@ function cardButtonConditionals(event) {
 
 
 function displayDirections(event) {
-  let newRecipeInfo = cookbook.recipes.find(recipe => {
+  const newRecipeInfo = cookbook.recipes.find(recipe => {
     if (recipe.id === Number(event.target.id)) {
       return recipe;
     }
   })
-  let recipeObject = new Recipe(newRecipeInfo, ingredientData);
-  let cost = recipeObject.calculateCost()
-  let costInDollars = (cost / 100).toFixed(2)
+  const recipeObject = new Recipe(newRecipeInfo, ingredientData);
+  //create helper fx for below
+  //need recipeObject to be passed in?
+  const cost = recipeObject.calculateCost()
+  const costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
   cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
   <p class='all-recipe-info'>
@@ -102,8 +105,10 @@ function displayDirections(event) {
   <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
   </span></ol>
   </p>`;
-  let ingredientsSpan = document.querySelector('.ingredients');
-  let instructionsSpan = document.querySelector('.instructions');
+  //helper fx here
+  // Does it need something passed down to activate?
+  const ingredientsSpan = document.querySelector('.ingredients');
+  const instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
     ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
     ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
@@ -116,6 +121,10 @@ function displayDirections(event) {
     `)
   })
 }
+
+// function displayRecipeOverview() {}
+
+// function displayIngredients() {}
 
 function getFavorites() {
   if (user.favoriteRecipes.length) {
