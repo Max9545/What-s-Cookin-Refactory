@@ -182,7 +182,7 @@ describe('User', () => {
             'unsalted butter': 0.5,
             'vanilla extract': 0.5
         }
-
+        console.log(user2.checkPantry(recipeIngredients))
         expect(user2.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithAmount);
     });
 });

@@ -33,21 +33,23 @@ class User {
         });
     }
     checkPantry(ingredientsToFind) {
+        let result
 
         let pantryNameList = []
         this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
 
         if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
             console.log('hi')
-            return 'You have the ingredients!'
+            result = 'You have the ingredients!'
         } else {
-            return ingredientsToFind.reduce((acc, ingredient) => {
+            result = ingredientsToFind.reduce((acc, ingredient) => {
                 if (!ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
                     acc[ingredient.name] = ingredient.quantity.amount
                 }
                 return acc
             }, {})
         }
+        return result
     }
 }
 
