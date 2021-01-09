@@ -25,14 +25,14 @@ favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
 
 function onStartup() {
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry)
-  pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
-  greetUser();
+    let userId = (Math.floor(Math.random() * 49) + 1)
+    let newUser = users.find(user => {
+        return user.id === Number(userId);
+    });
+    user = new User(userId, newUser.name, newUser.pantry)
+    pantry = new Pantry(newUser.pantry)
+    populateCards(cookbook.recipes);
+    greetUser();
 }
 
 function viewFavorites() {
@@ -62,26 +62,17 @@ function favoriteCard(event) {
     if (recipe.id === Number(event.target.id)) {
       return recipe;
     }
-  })
-  if (!event.target.classList.contains('favorite-active')) {
-    event.target.classList.add('favorite-active');
-    favButton.innerHTML = 'View Favorites';
-    user.addToFavorites(specificRecipe);
-  } else if (event.target.classList.contains('favorite-active')) {
-    event.target.classList.remove('favorite-active');
-    user.removeFromFavorites(specificRecipe)
-  }
 }
 
 function cardButtonConditionals(event) {
-  if (event.target.classList.contains('favorite')) {
-    favoriteCard(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    favButton.innerHTML = 'View Favorites';
-    populateCards(cookbook.recipes);
-  }
+    if (event.target.classList.contains('favorite')) {
+        favoriteCard(event);
+    } else if (event.target.classList.contains('card-picture')) {
+        displayDirections(event);
+    } else if (event.target.classList.contains('home')) {
+        favButton.innerHTML = 'View Favorites';
+        populateCards(cookbook.recipes);
+    }
 }
 
 
@@ -113,12 +104,12 @@ function displayIngredients(recipeObject) {
     ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
     ${ingredient.name}</li></ul>
     `)
-  })
-  recipeObject.instructions.forEach(instruction => {
-    instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
+    })
+    recipeObject.instructions.forEach(instruction => {
+        instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
     ${instruction.instruction}</li>
     `)
-  })
+    })
 }
 
 function getFavorites() {
@@ -159,3 +150,4 @@ function insertCards(cardsToDisplay) {
   </div>`)
   })
 }
+

@@ -1,7 +1,7 @@
 class Cookbook {
-  constructor(data) {
-    this.recipes = data;
-  }
+    constructor(data) {
+        this.recipes = data;
+    }
 
   findRecipe(searchText) {
     return this.recipes.filter(recipe => {
