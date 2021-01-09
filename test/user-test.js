@@ -84,12 +84,17 @@ describe('User', () => {
 
 
         user1.pantry = recipeData[0].ingredients
-        console.log(user1.pantry);
+
 
         expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
     });
 
     it('Should inform User if they lack required ingredients for a given recipe', () => {
+
+        let recipeIngredients = recipeData[0].ingredients
+
+        //here create array of ingredient names and a price of their sum from  needed amout times price
+
         expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
     });
 });
