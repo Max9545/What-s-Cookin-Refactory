@@ -8,6 +8,144 @@ let user1
 describe('User', () => {
     beforeEach(() => {
         user1 = new User(1, 'Boba', [{
+                "name": "all purpose flour",
+                "id": 20081,
+                "quantity": {
+                    "amount": 1.5,
+                    "unit": "c"
+                }
+            },
+            {
+                "name": "baking soda",
+                "id": 18372,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "tsp"
+                }
+            },
+            {
+                "name": "egg",
+                "id": 1123,
+                "quantity": {
+                    "amount": 1,
+                    "unit": "large"
+                }
+            },
+            {
+                "name": "granulated sugar",
+                "id": 19335,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "c"
+                }
+            },
+            {
+                "name": "instant vanilla pudding mix",
+                "id": 19206,
+                "quantity": {
+                    "amount": 3,
+                    "unit": "Tbsp"
+                }
+            },
+            {
+                "name": "light brown sugar",
+                "id": 19334,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "c"
+                }
+            },
+            {
+                "name": "salt",
+                "id": 2047,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "tsp"
+                }
+            },
+            {
+                "name": "sea salt",
+                "id": 1012047,
+                "quantity": {
+                    "amount": 24,
+                    "unit": "servings"
+                }
+            },
+            {
+                "name": "semisweet chocolate chips",
+                "id": 10019903,
+                "quantity": {
+                    "amount": 2,
+                    "unit": "c"
+                }
+            },
+            {
+                "name": "unsalted butter",
+                "id": 1145,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "c"
+                }
+            },
+            {
+                "name": "vanilla extract",
+                "id": 2050,
+                "quantity": {
+                    "amount": 0.5,
+                    "unit": "tsp"
+                }
+            }
+        ]);
+    });
+
+
+    it('Should have a property of favoriteRecipes with a default value', () => {
+        expect(user1.favoriteRecipes).to.eql([]);
+    });
+
+    it('Should be able to add recipes to favoriteRecipes', () => {
+
+        user1.addToFavorites(recipeData[0])
+
+        expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
+    });
+
+    it('Should be able to remove recipes from favoriteRecipes', () => {
+
+        user1.addToFavorites(recipeData[0])
+
+        user1.removeFromFavorites(recipeData[0]);
+
+        expect(user1.favoriteRecipes).to.eql([]);
+    });
+
+    it('Should be able to filter through favoriteRecipes by tag', () => {
+        user1.addToFavorites(recipeData[0]);
+
+        user1.addToFavorites(recipeData[1]);
+
+        expect(user1.filterFavorites('antipasti')).to.eql([recipeData[0]]);
+    });
+
+    it('Should be able to search favoriteRecipes by name or ingredient', () => {
+
+        user1.addToFavorites(recipeData[0]);
+
+        user1.addToFavorites(recipeData[1]);
+
+        expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
+    });
+
+    it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+
+        let recipeIngredients = recipeData[0].ingredients
+
+        expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
+    });
+
+    it.only('Should inform User if they lack required ingredients for a given recipe', () => {
+
+        let user2 = new User(1, 'Boba', [{
                 "id": 20081,
                 "name": "wheat flour",
                 "estimatedCostInCents": 142
@@ -26,75 +164,25 @@ describe('User', () => {
                 "id": 19335,
                 "name": "sucrose",
                 "estimatedCostInCents": 902
-            },
-            {
-                "id": 19206,
-                "name": "instant vanilla pudding",
-                "estimatedCostInCents": 660
-            },
-            {
-                "id": 19334,
-                "name": "brown sugar",
-                "estimatedCostInCents": 559
-            },
-            {
-                "id": 2047,
-                "name": "salt",
-                "estimatedCostInCents": 280
             }
         ]);
-    });
-
-
-    it('Should have a property of favoriteRecipes with a default value', () => {
-        expect(user1.favoriteRecipes).to.eql([]);
-    });
-
-    it('Should be able to add recipes to favoriteRecipes', () => {
-        user1.addToFavorites(recipeData[0])
-
-        expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
-    });
-
-    it('Should be able to remove recipes from favoriteRecipes', () => {
-        user1.addToFavorites(recipeData[0])
-
-        user1.removeFromFavorites(recipeData[0]);
-
-        expect(user1.favoriteRecipes).to.eql([]);
-    });
-
-    it('Should be able to filter through favoriteRecipes by tag', () => {
-        user1.addToFavorites(recipeData[0]);
-
-        user1.addToFavorites(recipeData[1]);
-
-        expect(user1.filterFavorites('antipasti')).to.eql([recipeData[0]]);
-    });
-
-    it('Should be able to search favoriteRecipes by name or ingredient', () => {
-        user1.addToFavorites(recipeData[0]);
-        user1.addToFavorites(recipeData[1]);
-        expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
-    });
-
-    it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
 
         let recipeIngredients = recipeData[0].ingredients
 
+        let missingIngredientsWithAmount = {
+            'all purpose flour': 1.5,
+            'baking soda': 0.5,
+            egg: 1,
+            'granulated sugar': 0.5,
+            'instant vanilla pudding mix': 3,
+            'light brown sugar': 0.5,
+            salt: 0.5,
+            'sea salt': 24,
+            'semisweet chocolate chips': 2,
+            'unsalted butter': 0.5,
+            'vanilla extract': 0.5
+        }
 
-        user1.pantry = recipeData[0].ingredients
-
-
-        expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
-    });
-
-    it('Should inform User if they lack required ingredients for a given recipe', () => {
-
-        let recipeIngredients = recipeData[0].ingredients
-
-        //here create array of ingredient names and a price of their sum from  needed amout times price
-
-        expect(user1.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
+        expect(user2.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithAmount);
     });
 });
