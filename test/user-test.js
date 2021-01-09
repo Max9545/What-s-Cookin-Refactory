@@ -83,7 +83,19 @@ describe('User', () => {
         let recipeIngredients = recipeData[0].ingredients
 
 
-        user1.pantry = recipeData[0].ingredients
+        user1.pantry = [{
+                "id": 20081,
+                "name": "wheat flour",
+                "estimatedCostInCents": 142
+            },
+            {
+                "id": 18372,
+                "name": "bicarbonate of soda",
+                "estimatedCostInCents": 582
+            }
+        ]
+
+        //recipeData[0].ingredients
 
 
         expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');

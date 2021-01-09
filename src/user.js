@@ -34,6 +34,24 @@ class User {
     }
     checkPantry(ingredientsToFind) {
 
+        let pantryNameList = []
+        this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
+        if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
+            return 'You have the ingredients!'
+        } else {
+            return 'not enough!'
+        }
+        // ingredientsToFind.forEach(ingredient => {
+        //     if (!pantryNameList.includes(ingredient.id)) {
+        //         //reduce
+        //     }
+        // })
+        console.log(pantryNameList);
+        //in: array
+        //out: string of suxcces or object of things needed + price
+        // for each ingredient to find see if it is included in the pantry
+        // if something isnt in pantry then reduce a object of whatt is needed 
+        //if suucces return string
     }
 }
 
