@@ -38,8 +38,6 @@ class User {
         this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
         if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
             return 'You have the ingredients!'
-        } else {
-            return 'not enough!'
         }
         // ingredientsToFind.forEach(ingredient => {
         //     if (!pantryNameList.includes(ingredient.id)) {
@@ -52,6 +50,15 @@ class User {
         // for each ingredient to find see if it is included in the pantry
         // if something isnt in pantry then reduce a object of whatt is needed 
         //if suucces return string
+        // else {
+        //     ingredientsToFind.reduce((acc, ingredient) => {
+        //         if (!ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
+        //             acc[ingredient.name] = ingredient.estimatedCostInCents
+        //             return acc
+        //         }
+        //         return acc
+        //     })
+        // }
     }
 }
 
