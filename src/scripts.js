@@ -137,7 +137,9 @@ function getFavorites() {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  } else {
+    return
+  }
 }
 
 function populateCards(recipes) {
@@ -165,4 +167,4 @@ function populateCards(recipes) {
     </div>`)
   })
   getFavorites();
-};
+}
