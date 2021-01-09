@@ -56,17 +56,19 @@ describe('User', () => {
         expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
     });
 
-    it.only('Should be able to remove recipes from favoriteRecipes', () => {
+    it('Should be able to remove recipes from favoriteRecipes', () => {
         user1.addToFavorites(recipeData[0])
-        console.log(user1);
+
         user1.removeFromFavorites(recipeData[0]);
-        console.log(user1);
+
         expect(user1.favoriteRecipes).to.eql([]);
     });
 
     it('Should be able to filter through favoriteRecipes by tag', () => {
         user1.addToFavorites(recipeData[0]);
+
         user1.addToFavorites(recipeData[1]);
+
         expect(user1.filterFavorites('antipasti')).to.eql([recipeData[0]]);
     });
 
@@ -76,20 +78,13 @@ describe('User', () => {
         expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
     });
 
-    it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+    it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
 
-        let recipeIngredients = [{
-                'ingredient': 1077,
-                'amount': 1
-            },
-            {
-                'ingredient': 14412,
-                'amount': 1
-            }, {
-                'ingredient': 1009054,
-                'amount': 3
-            }
-        ]
+        let recipeIngredients = recipeData[0].ingredients
+
+
+        user1.pantry = recipeData[0].ingredients
+        console.log(user1.pantry);
 
         expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
     });
