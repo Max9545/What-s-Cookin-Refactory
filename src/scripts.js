@@ -16,7 +16,7 @@ const cardArea = document.querySelector('.all-cards');
 
 const cookbook = new Cookbook(recipeData);
 let user, pantry;
-//pantry is declared but never used.
+//pantry is declared but never used
 
 window.onload = onStartup();
 
@@ -92,21 +92,20 @@ function displayDirections(event) {
     }
   })
   const recipeObject = new Recipe(newRecipeInfo, ingredientData);
-  //create helper fx for below
-  //need recipeObject to be passed in?
-  const cost = recipeObject.calculateCost()
-  const costInDollars = (cost / 100).toFixed(2)
+  displayRecipeOverview(recipeObject);
+  displayIngredients(recipeObject);
+}
+
+function displayRecipeOverview(recipeObject) {
+  const cost = recipeObject.calculateCost();
+  const costInDollars = (cost / 100).toFixed(2);
   cardArea.classList.add('all');
   cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
-  <p class='all-recipe-info'>
-  <strong>It will cost: </strong><span class='cost recipe-info'>
-  $${costInDollars}</span><br><br>
-  <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-  <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
-  </span></ol>
+  <p class='all-recipe-info'><strong>It will cost: </strong><span class='cost recipe-info'>${costInDollars}</span><br><br><strong>You will need: </strong><span class='ingredients recipe-info'></span><strong>Instructions:</strong><ol><span class='instructions recipe-info'></span></ol>
   </p>`;
-  //helper fx here
-  // Does it need something passed down to activate?
+}
+
+function displayIngredients(recipeObject) {
   const ingredientsSpan = document.querySelector('.ingredients');
   const instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
@@ -121,10 +120,6 @@ function displayDirections(event) {
     `)
   })
 }
-
-// function displayRecipeOverview() {}
-
-// function displayIngredients() {}
 
 function getFavorites() {
   if (user.favoriteRecipes.length) {
