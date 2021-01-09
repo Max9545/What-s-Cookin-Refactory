@@ -8,19 +8,43 @@ let user1
 describe('User', () => {
     beforeEach(() => {
         user1 = new User(1, 'Boba', [{
-                'ingredient': 1077,
-                'amount': 1
+                "id": 20081,
+                "name": "wheat flour",
+                "estimatedCostInCents": 142
             },
             {
-                'ingredient': 14412,
-                'amount': 1
+                "id": 18372,
+                "name": "bicarbonate of soda",
+                "estimatedCostInCents": 582
             },
             {
-                'ingredient': 1009054,
-                'amount': 3
+                "id": 1123,
+                "name": "eggs",
+                "estimatedCostInCents": 472
+            },
+            {
+                "id": 19335,
+                "name": "sucrose",
+                "estimatedCostInCents": 902
+            },
+            {
+                "id": 19206,
+                "name": "instant vanilla pudding",
+                "estimatedCostInCents": 660
+            },
+            {
+                "id": 19334,
+                "name": "brown sugar",
+                "estimatedCostInCents": 559
+            },
+            {
+                "id": 2047,
+                "name": "salt",
+                "estimatedCostInCents": 280
             }
         ]);
     });
+
 
     it('Should have a property of favoriteRecipes with a default value', () => {
         expect(user1.favoriteRecipes).to.eql([]);
@@ -28,11 +52,15 @@ describe('User', () => {
 
     it('Should be able to add recipes to favoriteRecipes', () => {
         user1.addToFavorites(recipeData[0])
+
         expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
     });
 
-    it('Should be able to remove recipes from favoriteRecipes', () => {
-        user1.removeFromFavorites(recipeData);
+    it.only('Should be able to remove recipes from favoriteRecipes', () => {
+        user1.addToFavorites(recipeData[0])
+        console.log(user1);
+        user1.removeFromFavorites(recipeData[0]);
+        console.log(user1);
         expect(user1.favoriteRecipes).to.eql([]);
     });
 
@@ -50,10 +78,18 @@ describe('User', () => {
 
     it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
 
-        let recipeIngredients = {
-            'ingredient': 1077,
-            'amount': 1
-        }
+        let recipeIngredients = [{
+                'ingredient': 1077,
+                'amount': 1
+            },
+            {
+                'ingredient': 14412,
+                'amount': 1
+            }, {
+                'ingredient': 1009054,
+                'amount': 3
+            }
+        ]
 
         expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
     });

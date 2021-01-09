@@ -32,10 +32,8 @@ class User {
                 });
         });
     }
-    checkPantry(ingredientToFind) {
-        if (this.pantry.find(ingredient => ingredient.ingredient === ingredientToFind.ingredient)) {
-            return 'You have the ingredients!'
-        }
+    checkPantry(ingredientsToFind) {
+
     }
 }
 
