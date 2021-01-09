@@ -1,14 +1,14 @@
-import { expect } from 'chai';
+import {
+  expect
+} from 'chai';
 
 import Recipe from '../src/recipe.js';
 import recipeData from '../src/data/recipes.js';
 import ingredientsData from '../src/data/ingredients.js';
 
-let recipe;
-
 describe('Recipe', () => {
+  let recipe;
   beforeEach(() => {
-
     recipe = new Recipe(recipeData[47], ingredientsData);
   });
 
@@ -24,7 +24,6 @@ describe('Recipe', () => {
   })
 
   it('Should be able to calculate the cost of its ingredients', () => {
-    // console.log(ingredientsData);
     expect(recipe.calculateCost()).to.equal(4166);
   });
 
