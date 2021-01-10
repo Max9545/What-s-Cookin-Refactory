@@ -1,153 +1,156 @@
 import './css/base.scss';
 import './css/styles.scss';
 
-import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
-import users from './data/users';
+
 
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
+import domUpdates from './domUpdates';
 
-const favButton = document.querySelector('.view-favorites');
+const favoriteButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const cardArea = document.querySelector('.all-cards');
+const toCookButton = document.querySelector('.view-to-cook')
+let user, pantry, cookbook, users, ingredientData;
 
-const cookbook = new Cookbook(recipeData);
-let user, pantry;
-//pantry is declared but never used
+window.onload = loadData();
 
-window.onload = onStartup();
+homeButton.addEventListener("click", cardButtonConditionals);
+favoriteButton.addEventListener('click', viewFavorites);
+toCookButton.addEventListener('click', viewRecipesToCook);
+cardArea.addEventListener("click", cardButtonConditionals);
 
-homeButton.addEventListener('click', cardButtonConditionals);
-favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('click', cardButtonConditionals);
+
+function loadData() {
+  getRecipeData();
+  getIngredientData();
+  getUserData();
+}
+
+function getUserData() {
+  fetch("http://localhost:3001/api/v1/users")
+  .then((response) => response.json())
+  .then(userData => users = userData)
+  .then((userData) => onStartup());
+}
+
+function getRecipeData() {
+  fetch("http://localhost:3001/api/v1/recipes")
+    .then((response) => response.json())
+    .then((recipeData) => {
+      cookbook = new Cookbook(recipeData, ingredientData)
+      domUpdates.displayCards(cookbook.recipes, cardArea)
+    })
+  }
+
+  function getIngredientData() {
+    fetch("http://localhost:3001/api/v1/ingredients")
+    .then(response => response.json())
+    .then(data => {
+      ingredientData = data;
+      getRecipeData();
+    })
+  }
 
 function onStartup() {
-    let userId = (Math.floor(Math.random() * 49) + 1)
-    let newUser = users.find(user => {
-        return user.id === Number(userId);
-    });
-    user = new User(userId, newUser.name, newUser.pantry)
-    pantry = new Pantry(newUser.pantry)
-    populateCards(cookbook.recipes);
-    greetUser();
+  let userId = (Math.floor(Math.random() * 49) + 1)
+  let newUser = users.find(user => {
+    return user.id === Number(userId);
+  });
+  user = new User(userId, newUser.name, newUser.pantry)
+  pantry = new Pantry(newUser.pantry)
+  domUpdates.greetUser(user);
+  getFavorites();
 }
+
 
 function viewFavorites() {
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
-  if (!user.favoriteRecipes.length) {
-    favButton.innerHTML = 'You have no favorites!';
-    populateCards(cookbook.recipes);
-    return
-  } else {
-    favButton.innerHTML = 'Refresh Favorites'
-    cardArea.innerHTML = '';
-    insertCards(user.favoriteRecipes);
-
+  if (user.favoriteRecipes.length) {
+    domUpdates.connectWithClassList('add', 'hidden', event, favoriteButton);
+    domUpdates.displayCards(user.favoriteRecipes, cardArea);
+    getFavorites();
   }
 }
 
-function greetUser() {
-  const userName = document.querySelector('.user-name');
-  userName.innerHTML =
-    user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+function viewRecipesToCook() {
+  if (user.recipesToCook.length) {
+    domUpdates.displayCards(user.recipesToCook, cardArea);
+  }
+  user.recipesToCook.forEach(recipe => {
+    if (user.favoriteRecipes.includes(recipe)) {
+      let recipeID = document.querySelector(`.favorite${recipe.id}`);
+      domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
+    }
+  })
 }
 
 function favoriteCard(event) {
-  let specificRecipe = cookbook.recipes.find(recipe => {
-    if (recipe.id === Number(event.target.id)) {
-      return recipe;
-    }
+  let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  if (!domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
+    domUpdates.connectWithClassList('add', 'favorite-active', event);
+
+    user.addToFavorites(specificRecipe, 'favoriteRecipes');
+  } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
+    domUpdates.connectWithClassList('remove', 'favorite-active', event);
+    user.removeFromFavorites(specificRecipe,'favoriteRecipes')
+    domUpdates.displayCards(user.favoriteRecipes, cardArea);
+    getFavorites();
+  }
+}
+
+function addCardToCookList(event) {
+  let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  if (!domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
+    domUpdates.connectWithClassList('add', 'cook-list-active', event);
+    user.addToFavorites(specificRecipe, 'recipesToCook');
+  } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
+    domUpdates.connectWithClassList('remove', 'cook-list-active', event);
+    user.removeFromFavorites(specificRecipe,'recipesToCook')
+  }
 }
 
 function cardButtonConditionals(event) {
-    if (event.target.classList.contains('favorite')) {
-        favoriteCard(event);
-    } else if (event.target.classList.contains('card-picture')) {
-        displayDirections(event);
-    } else if (event.target.classList.contains('home')) {
-        favButton.innerHTML = 'View Favorites';
-        populateCards(cookbook.recipes);
-    }
+  if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
+    favoriteCard(event);
+  } else if (domUpdates.connectWithClassList('contains', 'add-button', event) || domUpdates.connectWithClassList('contains', 'add', event)) {
+    addCardToCookList(event);
+  } else if (domUpdates.connectWithClassList('contains', 'card-picture', event)) {
+    displayDirections(event);
+  } else if (domUpdates.connectWithClassList('contains', 'home', event)) {
+    domUpdates.connectWithClassList('remove', 'hidden', event, favoriteButton);
+    domUpdates.displayCards(cookbook.recipes, cardArea);
+    getFavorites();
+  }
 }
-
 
 function displayDirections(event) {
-  const newRecipeInfo = cookbook.recipes.find(recipe => {
-    if (recipe.id === Number(event.target.id)) {
-      return recipe;
-    }
-  })
-  const recipeObject = new Recipe(newRecipeInfo, ingredientData);
-  displayRecipeOverview(recipeObject);
-  displayIngredients(recipeObject);
-}
-
-function displayRecipeOverview(recipeObject) {
-  const cost = recipeObject.calculateCost();
-  const costInDollars = (cost / 100).toFixed(2);
-  cardArea.classList.add('all');
-  cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
-  <p class='all-recipe-info'><strong>It will cost: </strong><span class='cost recipe-info'>${costInDollars}</span><br><br><strong>You will need: </strong><span class='ingredients recipe-info'></span><strong>Instructions:</strong><ol><span class='instructions recipe-info'></span></ol>
-  </p>`;
-}
-
-function displayIngredients(recipeObject) {
-  const ingredientsSpan = document.querySelector('.ingredients');
-  const instructionsSpan = document.querySelector('.instructions');
-  recipeObject.ingredients.forEach(ingredient => {
-    ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
-    ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-    ${ingredient.name}</li></ul>
-    `)
-    })
-    recipeObject.instructions.forEach(instruction => {
-        instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
-    ${instruction.instruction}</li>
-    `)
-    })
+  domUpdates.connectWithClassList('remove', 'hidden', event, favoriteButton)
+  let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  let recipeObject = new Recipe(newRecipeInfo, ingredientData);
+  let cost = recipeObject.calculateCost();
+  let costInDollars = (cost / 100).toFixed(2);
+  domUpdates.connectWithClassList('add', 'all', event, cardArea);
+  domUpdates.populateRecipeCard(cardArea, recipeObject, costInDollars);
 }
 
 function getFavorites() {
   if (user.favoriteRecipes.length) {
     user.favoriteRecipes.forEach(recipe => {
-      document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
+      let recipeID = document.querySelector(`.favorite${recipe.id}`);
+      domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
     })
   }
 }
 
-function populateCards(recipes) {
-  cardArea.innerHTML = '';
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
-  }
-  insertCards(recipes);
-  getFavorites();
-}
-
-function insertCards(cardsToDisplay) {
-  cardsToDisplay.forEach(recipe => {
-    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-  class='card'>
-      <header id='${recipe.id}' class='card-header'>
-        <label for='add-button' class='hidden'>Click to add recipe</label>
-        <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-          <img id='${recipe.id} favorite' class='add'
-          src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-          recipes to cook'>
-        </button>
-        <label for='favorite-button' class='hidden'>Click to favorite recipe
-        </label>
-        <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-      </header>
-        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-        <img id='${recipe.id}' tabindex='0' class='card-picture'
-        src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-  </div>`)
+function displaySearchRecipes(event) {
+  let filteredRecipes = cookbook.findRecipes(searchInput.value.toLowerCase());
+  domUpdates.displayCards(filteredRecipes, cardArea);
+  filteredRecipes.forEach(recipe => {
+    if (user.favoriteRecipes.includes(recipe)) {
+      let recipeID = document.querySelector(`.favorite${recipe.id}`);
+      domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
+    }
   })
 }
-
