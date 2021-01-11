@@ -9,9 +9,11 @@ import User from './user';
 import Cookbook from './cookbook';
 import domUpdates from './domUpdates';
 
+const homeButton = document.querySelector('.home');
 const favoriteButton = document.querySelector('.view-favorites');
-const homeButton = document.querySelector('.home')
-const recipesToCookButton = document.querySelector('.view-to-cook')
+const recipesToCookButton = document.querySelector('.view-to-cook');
+const searchButton = document.querySelector('#search-button');
+const searchField = document.querySelector('#search-input');
 const cardArea = document.querySelector('.all-cards');
 
 let user, users, pantry, cookbook, ingredientData;
@@ -21,6 +23,7 @@ window.onload = loadData();
 homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
+searchButton.addEventListener('click', showFoundRecipes);
 cardArea.addEventListener("click", conditionalsCardButtons);
 
 
