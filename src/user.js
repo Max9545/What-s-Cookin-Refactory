@@ -40,7 +40,6 @@ class User {
         this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
 
         if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
-            console.log('hi')
             result = 'You have the ingredients!'
         } else {
             result = ingredientsToFind.reduce((acc, ingredient) => {

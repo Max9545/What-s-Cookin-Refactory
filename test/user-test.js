@@ -143,7 +143,7 @@ describe('User', () => {
         expect(user1.checkPantry(recipeIngredients)).to.eql('You have the ingredients!');
     });
 
-    it.only('Should inform User if they lack required ingredients for a given recipe', () => {
+    it('Should inform User if they lack required ingredients for a given recipe', () => {
 
         let user2 = new User(1, 'Boba', [{
                 "id": 20081,
