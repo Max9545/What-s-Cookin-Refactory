@@ -11,16 +11,17 @@ import domUpdates from './domUpdates';
 
 const favoriteButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
+const recipesToCookButton = document.querySelector('.view-to-cook')
 const cardArea = document.querySelector('.all-cards');
-const toCookButton = document.querySelector('.view-to-cook')
-let user, pantry, cookbook, users, ingredientData;
+
+let user, users, pantry, cookbook, ingredientData;
 
 window.onload = loadData();
 
-homeButton.addEventListener("click", cardButtonConditionals);
+homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
-toCookButton.addEventListener('click', viewRecipesToCook);
-cardArea.addEventListener("click", cardButtonConditionals);
+recipesToCookButton.addEventListener('click', viewRecipesToCook);
+cardArea.addEventListener("click", conditionalsCardButtons);
 
 
 function loadData() {
@@ -40,7 +41,7 @@ function getRecipeData() {
   fetch("http://localhost:3001/api/v1/recipes")
     .then((response) => response.json())
     .then((recipeData) => {
-      cookbook = new Cookbook(recipeData, ingredientData)
+      cookbook = new Cookbook(recipeData)
       domUpdates.displayCards(cookbook.recipes, cardArea)
     })
   }
@@ -111,7 +112,7 @@ function addCardToCookList(event) {
   }
 }
 
-function cardButtonConditionals(event) {
+function conditionalsCardButtons(event) {
   if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
     favoriteCard(event);
   } else if (domUpdates.connectWithClassList('contains', 'add-button', event) || domUpdates.connectWithClassList('contains', 'add', event)) {
@@ -130,9 +131,9 @@ function displayDirections(event) {
   let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
   let recipeObject = new Recipe(newRecipeInfo, ingredientData);
   let cost = recipeObject.calculateCost();
-  let costInDollars = (cost / 100).toFixed(2);
+  let dollarCost = (cost / 100).toFixed(2);
   domUpdates.connectWithClassList('add', 'all', event, cardArea);
-  domUpdates.populateRecipeCard(cardArea, recipeObject, costInDollars);
+  domUpdates.populateRecipeCard(cardArea, recipeObject, dollarCost, ingredientData);
 }
 
 function getFavorites() {
