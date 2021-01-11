@@ -7,13 +7,13 @@ let domUpdates = {
      class='card'>
      <header id='${recipe.id}' class='card-header'>
      <label for='add-button' class='hidden'>Click to add recipe</label>
-     <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+     <button id='${recipe.id}'  class='add-button card-button'>
      <img id='${recipe.id}' class='add'
      src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
      recipes to cook'></button>
      <label for='favorite-button' class='hidden'>Click to favorite recipe
      </label>
-     <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'>
+     <button id='${recipe.id}'class='favorite favorite${recipe.id} card-button'>
      </button></header>
      <img id='${recipe.id}' tabindex='0' class='card-picture'
      src='${recipe.image}' alt='Food from recipe'>
@@ -21,12 +21,10 @@ let domUpdates = {
      </div>`)
    })
  },
+
  greetUser(user) {
     const userName = document.querySelector('.user-info');
     userName.innerText = `Welcome, ${user.name}.`;
-
-    // userName.innerHTML =
-    // user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
 },
 
   connectWithClassList(method, className, event, element) {
@@ -42,16 +40,19 @@ let domUpdates = {
       return event.target.classList.contains(className);
     }
   },
-  displayOneLiners(element, text) {
-    element.innerText = text;
+
+  findIngredientName(number, info) {
+    const ingredient = info.find(ingredient =>ingredient.id === number)
+    return ingredient.name
   },
-  populateRecipeCard(cardArea, recipeObject, costInDollars) {
-    cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
+
+  populateRecipeCard(cardArea, recipeObject, costInDollars, array) {
+    cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
-    <strong>It will cost: </strong><span class='cost recipe-info'>
+    It will cost: <span class='cost recipe-info'>
     $${costInDollars}</span><br><br>
-    <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-    <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+    You will need:<span class='ingredients recipe-info'></span>
+    Instructions:<ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
@@ -59,7 +60,7 @@ let domUpdates = {
     recipeObject.ingredients.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
       ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
-      ${ingredient.name}</li></ul>
+      ${this.findIngredientName(ingredient.id, array)} </li></ul>
       `)
     })
     recipeObject.instructions.forEach(instruction => {
