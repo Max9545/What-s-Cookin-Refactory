@@ -94,7 +94,6 @@ function favoriteCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
   if (!domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
     domUpdates.connectWithClassList('add', 'favorite-active', event);
-
     user.addToFavorites(specificRecipe, 'favoriteRecipes');
   } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
     domUpdates.connectWithClassList('remove', 'favorite-active', event);
