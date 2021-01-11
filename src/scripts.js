@@ -13,7 +13,6 @@ const homeButton = document.querySelector('.home');
 const favoriteButton = document.querySelector('.view-favorites');
 const recipesToCookButton = document.querySelector('.view-to-cook');
 const searchButton = document.querySelector('#search-button');
-const searchField = document.querySelector('#search-input');
 const cardArea = document.querySelector('.all-cards');
 
 let user, users, pantry, cookbook, ingredientData;
@@ -23,7 +22,7 @@ window.onload = loadData();
 homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
-searchButton.addEventListener('click', showFoundRecipes);
+searchButton.addEventListener('click', displaySearchRecipes);
 cardArea.addEventListener("click", conditionalsCardButtons);
 
 
@@ -32,6 +31,7 @@ function loadData() {
   getIngredientData();
   getUserData();
 }
+//should these three functions exist in donUpdates or in APIcalls, instead?
 
 function getUserData() {
   fetch("http://localhost:3001/api/v1/users")
@@ -149,8 +149,11 @@ function getFavorites() {
 }
 
 function displaySearchRecipes(event) {
-  let filteredRecipes = cookbook.findRecipes(searchInput.value.toLowerCase());
+  debugger
+  const searchInput = document.querySelector('#search-input');
+  let filteredRecipes = cookbook.findRecipe(searchInput.value.toLowerCase());
   domUpdates.displayCards(filteredRecipes, cardArea);
+  //why are we adding a favorite to what's be searched for?
   filteredRecipes.forEach(recipe => {
     if (user.favoriteRecipes.includes(recipe)) {
       let recipeID = document.querySelector(`.favorite${recipe.id}`);
@@ -158,3 +161,5 @@ function displaySearchRecipes(event) {
     }
   })
 }
+//need to also link input field
+//ok, so, close, we are grabbing the input, but not?
