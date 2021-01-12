@@ -42,21 +42,21 @@ function getUserData() {
 
 function getRecipeData() {
   fetch("http://localhost:3001/api/v1/recipes")
-    .then((response) => response.json())
-    .then((recipeData) => {
-      cookbook = new Cookbook(recipeData)
-      domUpdates.displayCards(cookbook.recipes, cardArea)
-    })
-  }
+  .then((response) => response.json())
+  .then((recipeData) => {
+    cookbook = new Cookbook(recipeData)
+    domUpdates.displayCards(cookbook.recipes, cardArea)
+  })
+}
 
-  function getIngredientData() {
-    fetch("http://localhost:3001/api/v1/ingredients")
-    .then(response => response.json())
-    .then(data => {
-      ingredientData = data;
-      getRecipeData();
-    })
-  }
+function getIngredientData() {
+  fetch("http://localhost:3001/api/v1/ingredients")
+  .then(response => response.json())
+  .then(data => {
+    ingredientData = data;
+    getRecipeData();
+  })
+}
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -89,6 +89,7 @@ function viewRecipesToCook() {
     }
   })
 }
+//method needs to exist in user?
 
 function favoriteCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
@@ -113,6 +114,7 @@ function addCardToCookList(event) {
     user.removeFromFavorites(specificRecipe,'recipesToCook')
   }
 }
+//use user method
 
 function conditionalsCardButtons(event) {
   if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
@@ -148,17 +150,15 @@ function getFavorites() {
 }
 
 function displaySearchRecipes(event) {
-  debugger
+  event.preventDefault();
   const searchInput = document.querySelector('#search-input');
-  let filteredRecipes = cookbook.findRecipe(searchInput.value.toLowerCase());
+  let filteredRecipes = cookbook.findRecipe(searchInput.value);
   domUpdates.displayCards(filteredRecipes, cardArea);
-  //why are we adding a favorite to what's be searched for?
-  filteredRecipes.forEach(recipe => {
-    if (user.favoriteRecipes.includes(recipe)) {
-      let recipeID = document.querySelector(`.favorite${recipe.id}`);
-      domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
-    }
-  })
+
+  // filteredRecipes.forEach(recipe => {
+  //   if (user.favoriteRecipes.includes(recipe)) {
+  //     let recipeID = document.querySelector(`.favorite${recipe.id}`);
+  //     domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
+  //   }
+  // })
 }
-//need to also link input field
-//ok, so, close, we are grabbing the input, but not?
