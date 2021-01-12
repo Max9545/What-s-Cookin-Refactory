@@ -5,14 +5,9 @@ class Cookbook {
 
   findRecipe(searchText) {
     if (this.findRecipeByName(searchText)) {
-      console.log('name conditional');
       return this.findRecipeByName(searchText);
-    } else if (this.findRecipeByTag(searchText) !== []) {
-      console.log('tag conditional');
+    } else if (this.findRecipeByTag(searchText)) {
       return this.findRecipeByTag(searchText);
-    } else {
-      console.log('ingredient conditional')
-      return this.findRecipeByIngredient(searchText, data);
     }
   }
 

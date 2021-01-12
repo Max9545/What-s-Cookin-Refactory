@@ -33,7 +33,7 @@ describe.only('Cookbook', () => {
       expect(cookbook.findRecipe('Starter').length).to.equal(9);
     })
 
-    it.only('Should be able to filter through its array by ingredients', () => {
+    it('Should be able to filter through its array by ingredients', () => {
       expect(cookbook.findRecipeByIngredient('YOlk', ingredientsData).length).to.equal(2);
       expect(cookbook.findRecipeByIngredient('yolk', ingredientsData).length).to.equal(2);
     });
