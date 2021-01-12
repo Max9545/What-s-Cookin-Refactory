@@ -3,7 +3,7 @@ import {
 } from 'chai';
 
 
-import recipeData from '../src/data/recipes';
+import recipeData from './data/recipes';
 import Cookbook from '../src/cookbook';
 
 
