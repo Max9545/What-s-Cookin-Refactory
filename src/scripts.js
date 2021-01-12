@@ -13,6 +13,7 @@ const favoriteButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const recipesToCookButton = document.querySelector('.view-to-cook')
 const cardArea = document.querySelector('.all-cards');
+const addRecipeButton = document.querySelector('.add-button')
 
 let user, users, pantry, cookbook, ingredientData;
 
@@ -22,6 +23,7 @@ homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 cardArea.addEventListener("click", conditionalsCardButtons);
+addRecipeButton.addEventListener('click', addCardToCookList)
 
 
 function loadData() {
@@ -77,10 +79,12 @@ function viewFavorites() {
 
 function viewRecipesToCook() {
     if (user.recipesToCook.length) {
+        console.log('im in the first if')
         domUpdates.displayCards(user.recipesToCook, cardArea);
     }
     user.recipesToCook.forEach(recipe => {
-        if (user.favoriteRecipes.includes(recipe)) {
+        if (user.recipesToCook.includes(recipe)) {
+            console.log('im in the first if')
             let recipeID = document.querySelector(`.favorite${recipe.id}`);
             domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
         }
@@ -110,6 +114,7 @@ function addCardToCookList(event) {
         domUpdates.connectWithClassList('remove', 'cook-list-active', event);
         user.removeFromFavorites(specificRecipe, 'recipesToCook')
     }
+    console.log('im in the  addCardToCookList')
 }
 
 function conditionalsCardButtons(event) {
