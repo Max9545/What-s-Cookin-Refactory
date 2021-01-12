@@ -24,6 +24,7 @@ class User {
         const i = this.favoriteRecipes.indexOf(recipe);
         this.favoriteRecipes.splice(i, 1)
     }
+
     removeFromRecipesToCook(recipe) {
         const i = this.recipesToCook.indexOf(recipe);
         this.recipesToCook.splice(i, 1)
@@ -31,6 +32,11 @@ class User {
 
     filterFavorites(tag) {
         return this.favoriteRecipes.filter(recipe => {
+            return recipe.tags.includes(tag);
+        });
+    }
+    filterRecipeToCooks(tag) {
+        return this.recipesToCook.filter(recipe => {
             return recipe.tags.includes(tag);
         });
     }
@@ -43,6 +49,15 @@ class User {
                 });
         });
     }
+    findRecipesToCook(strgToSrch) {
+        return this.recipesToCook.filter(recipe => {
+            return recipe.name.includes(strgToSrch) ||
+                recipe.ingredients.find(ingredient => {
+                    return ingredient.name.includes(strgToSrch)
+                });
+        });
+    }
+
     checkPantry(ingredientsToFind) {
         let result
 
@@ -50,7 +65,6 @@ class User {
         this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
 
         if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {
-            console.log('hi')
             result = 'You have the ingredients!'
         } else {
             result = ingredientsToFind.reduce((acc, ingredient) => {
