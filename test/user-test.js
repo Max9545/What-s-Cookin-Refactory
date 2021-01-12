@@ -137,13 +137,13 @@ describe('User', () => {
     });
 
 
-    it.only('Should have a property of favoriteRecipes with a default value', () => {
+    it('Should have a property of favoriteRecipes with a default value', () => {
         expect(user1.recipesToCook).to.eql([]);
     });
 
-    it('Should be able to add recipes to recipesToCook', () => {
+    it.only('Should be able to add recipes to recipesToCook', () => {
 
-        user1.recipesToCook(recipeData[0])
+        user1.addToRecipesToCook(recipeData[0])
 
         expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
     });

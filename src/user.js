@@ -14,6 +14,12 @@ class User {
         }
     }
 
+    addToRecipesToCook(recipe) {
+        if (!this.recipesToCook.includes(recipe)) {
+            this.recipesToCook.push(recipe)
+        }
+    }
+
     removeFromFavorites(recipe) {
         const i = this.favoriteRecipes.indexOf(recipe);
         this.favoriteRecipes.splice(i, 1)
