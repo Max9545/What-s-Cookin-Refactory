@@ -123,11 +123,12 @@ function addCardToCookList(event) {
         domUpdates.connectWithClassList('add', 'cook-list-active', event);
         user.addToRecipesToCook(specificRecipe, 'recipesToCook');
     } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
+
         domUpdates.connectWithClassList('remove', 'cook-list-active', event);
         user.removeFromRecipesToCook(specificRecipe, 'recipesToCook')
+        domUpdates.displayCards(user.recipesToCook, cardArea);
         getRecipesToCook()
     }
-    console.log(user.recipesToCook)
 }
 
 function conditionalsCardButtons(event) {
