@@ -157,7 +157,7 @@ describe('User', () => {
         expect(user1.recipesToCook).to.eql([]);
     });
 
-    it.only('Should be able to filter through recipesToCook by tag', () => {
+    it('Should be able to filter through recipesToCook by tag', () => {
 
         user1.addToRecipesToCook(recipeData[0]);
 
