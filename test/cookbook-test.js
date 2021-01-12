@@ -1,5 +1,5 @@
 import {
-  expect
+    expect
 } from 'chai';
 
 
@@ -8,32 +8,33 @@ import Cookbook from '../src/cookbook';
 
 
 describe('Cookbook', () => {
-  let cookbook;
+    let cookbook;
 
-  beforeEach(() => {
-    cookbook = new Cookbook(recipeData);
-  });
-
-  it('Should have a populated array of recipes', () => {
-    expect(cookbook.recipes).to.be.an('array');
-    expect(cookbook.recipes).to.deep.equal(recipeData);
-  });
-
-  describe('findRecipe', () => {
-    it('Should be able to filter through its array by ingredients', () => {
-      expect(cookbook.findRecipe('yolk').length).to.equal(2);
+    beforeEach(() => {
+        cookbook = new Cookbook(recipeData);
     });
 
-    it('Should be able to filter through its array by name', () => {
-      expect(cookbook.findRecipe('Sesame Cookies')[0]).to.deep.equal(recipeData[7]);
+    it('Should have a populated array of recipes', () => {
+        expect(cookbook.recipes).to.be.an('array');
+        expect(cookbook.recipes).to.deep.equal(recipeData);
     });
 
-    it('Should be able to filter through its array by tag', () => {
-      expect(cookbook.findRecipe('starter').length).to.equal(9);
-    })
+    describe('findRecipe', () => {
+        it('Should be able to filter through its array by ingredients', () => {
+            expect(cookbook.findRecipe('yolk').length).to.equal(2);
+        });
 
-    it('Should have no recipies with the same name', () => {
-      expect(cookbook.findRecipe('Loaded Chocolate Chip Pudding Cookie Cups').length).to.equal(1);
-    })
-  });
+        it('Should be able to filter through its array by name', () => {
+            expect(cookbook.findRecipe('Sesame Cookies')[0]).to.deep.equal(recipeData[7]);
+        });
+
+        it('Should be able to filter through its array by tag', () => {
+            console.log(cookbook);
+            expect(cookbook.findRecipe('starter').length).to.equal(9);
+        })
+
+        it('Should have no recipies with the same name', () => {
+            expect(cookbook.findRecipe('Loaded Chocolate Chip Pudding Cookie Cups').length).to.equal(1);
+        })
+    });
 })
