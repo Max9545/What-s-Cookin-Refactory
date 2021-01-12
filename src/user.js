@@ -24,6 +24,10 @@ class User {
         const i = this.favoriteRecipes.indexOf(recipe);
         this.favoriteRecipes.splice(i, 1)
     }
+    removeFromRecipesToCook(recipe) {
+        const i = this.recipesToCook.indexOf(recipe);
+        this.recipesToCook.splice(i, 1)
+    }
 
     filterFavorites(tag) {
         return this.favoriteRecipes.filter(recipe => {

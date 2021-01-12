@@ -141,14 +141,14 @@ describe('User', () => {
         expect(user1.recipesToCook).to.eql([]);
     });
 
-    it.only('Should be able to add recipes to recipesToCook', () => {
+    it('Should be able to add recipes to recipesToCook', () => {
 
         user1.addToRecipesToCook(recipeData[0])
 
         expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
     });
 
-    it('Should be able to remove recipes from recipesToCook', () => {
+    it.only('Should be able to remove recipes from recipesToCook', () => {
 
         user1.addToRecipesToCook(recipeData[0])
 
