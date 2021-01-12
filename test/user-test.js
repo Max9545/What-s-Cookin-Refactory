@@ -127,7 +127,7 @@ describe('User', () => {
         expect(user1.filterFavorites('antipasti')).to.eql([recipeData[0]]);
     });
 
-    it('Should be able to search favoriteRecipes by name or ingredient', () => {
+    it.only('Should be able to search favoriteRecipes by name or ingredient', () => {
 
         user1.addToFavorites(recipeData[0]);
 

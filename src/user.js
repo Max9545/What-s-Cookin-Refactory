@@ -42,13 +42,12 @@ class User {
     }
 
     findFavorites(strgToSrch) {
-        return this.favoriteRecipes.filter(recipe => {
-            return recipe.name.includes(strgToSrch) ||
-                recipe.ingredients.find(ingredient => {
-                    return ingredient.name.includes(strgToSrch)
-                });
-        });
+        return this.favoriteRecipes.filter(recipe =>
+            recipe.name.includes(strgToSrch) ||
+            recipe.ingredients.find(ingredient => ingredient.name.includes(strgToSrch))
+        );
     }
+
     findRecipesToCook(strgToSrch) {
         return this.recipesToCook.filter(recipe => {
             return recipe.name.includes(strgToSrch) ||
