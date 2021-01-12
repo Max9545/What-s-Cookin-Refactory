@@ -157,7 +157,7 @@ describe('User', () => {
         expect(user1.recipesToCook).to.eql([]);
     });
 
-    it('Should be able to filter through recipesToCook by tag', () => {
+    it.only('Should be able to filter through recipesToCook by tag', () => {
 
         user1.addToRecipesToCook(recipeData[0]);
 
@@ -166,7 +166,7 @@ describe('User', () => {
         expect(user1.filterRecipeToCooks('antipasti')).to.eql([recipeData[0]]);
     });
 
-    it.only('Should be able to search recipesToCook by name or ingredient', () => {
+    it('Should be able to search recipesToCook by name or ingredient', () => {
 
         user1.addToRecipesToCook(recipeData[0]);
 
