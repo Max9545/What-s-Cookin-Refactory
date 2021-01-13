@@ -21,7 +21,7 @@ class Cookbook {
       return this.findRecipeByName(searchText)
     } else if (this.findRecipeByTag(searchText)) {
       return this.findRecipeByTag(searchText);
-    } else {
+    } else if (this.findRecipeByIngredient(searchText)) {
       return this.findRecipeByIngredient(searchText);
     }
   }
@@ -42,7 +42,7 @@ class Cookbook {
 
   findRecipeByIngredient(searchText) {
     return this.recipes.filter(recipe => recipe.ingredients.find(ingredient => {
-      if (ingredient.name.includes(searchText)) {
+      if (ingredient.name.includes(searchText.toLowerCase())) {
         return recipe;
       }
     }))
