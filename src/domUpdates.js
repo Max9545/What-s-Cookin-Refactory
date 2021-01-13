@@ -62,11 +62,6 @@ let domUpdates = {
     }
   },
 
-  // findIngredientName(number, info) {
-  //   const ingredient = info.find(ingredient => ingredient.id === number)
-  //   return ingredient.name
-  // },
-
   populateRecipeCard(cardArea, recipeObject, costInDollars, array) {
     cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
