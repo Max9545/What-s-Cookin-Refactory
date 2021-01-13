@@ -156,11 +156,4 @@ function displaySearchRecipes(event) {
   const searchInput = document.querySelector('#search-input');
   const filteredRecipes = cookbook.findRecipe(searchInput.value, ingredientData);
   domUpdates.displayCards(filteredRecipes, cardArea);
-
-  // filteredRecipes.forEach(recipe => {
-  //   if (user.favoriteRecipes.includes(recipe)) {
-  //     let recipeID = document.querySelector(`.favorite${recipe.id}`);
-  //     domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
-  //   }
-  // })
 }
