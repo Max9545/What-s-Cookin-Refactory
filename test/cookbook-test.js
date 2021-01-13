@@ -13,6 +13,7 @@ describe.only('Cookbook', () => {
 
   beforeEach(() => {
     cookbook = new Cookbook(recipeData);
+    cookbook.addIngredientNames(ingredientsData);
   });
 
   it('Should have a populated array of recipes', () => {
@@ -23,23 +24,23 @@ describe.only('Cookbook', () => {
   describe('findRecipe', () => {
 
     it('Should be able to filter through its array by name', () => {
-      expect(cookbook.findRecipe('Sesame Cookies', ingredientsData)).to.deep.equal(recipeData[7]);
-      expect(cookbook.findRecipe('sesame cookies', ingredientsData)).to.deep.equal(recipeData[7]);
+      expect(cookbook.findRecipe('Sesame Cookies')[0]).to.deep.equal(recipeData[7]);
+      expect(cookbook.findRecipe('sesame cookies')[0]).to.deep.equal(recipeData[7]);
     });
 
     it('Should be able to filter through its array by name and get multiple possiblities', () => {
-      expect(cookbook.findRecipe('cake', ingredientsData).length).to.equal(2);
-      expect(cookbook.findRecipe('cake', ingredientsData)).to.deep.equal([recipeData[22], recipeData[27]]);
+      expect(cookbook.findRecipe('cake').length).to.equal(2);
+      expect(cookbook.findRecipe('cake')).to.deep.equal([recipeData[22], recipeData[27]]);
     });
 
-    it('Should be able to filter through its array by tag', () => {
-      expect(cookbook.findRecipe('starter', ingredientsData).length).to.equal(9);
-      expect(cookbook.findRecipe('Starter', ingredientsData).length).to.equal(9);
+    it.only('Should be able to filter through its array by tag', () => {
+      expect(cookbook.findRecipe('starter').length).to.equal(9);
+      expect(cookbook.findRecipe('Starter').length).to.equal(9);
     })
 
     it('Should be able to filter through its array by ingredients', () => {
-      expect(cookbook.findRecipe('YOlk', ingredientsData).length).to.equal(2);
-      expect(cookbook.findRecipe('yolk', ingredientsData).length).to.equal(2);
+      expect(cookbook.findRecipe('YOlk').length).to.equal(2);
+      expect(cookbook.findRecipe('yolk').length).to.equal(2);
     });
   });
 })
