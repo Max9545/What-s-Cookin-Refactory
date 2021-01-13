@@ -47,5 +47,11 @@ describe.only('Cookbook', () => {
       expect(cookbook.findRecipe('pork').length).to.equal(3);
       expect(cookbook.findRecipe('BAr').length).to.equal(5);
     })
+
+    it('Should have no repeats in searched recipes', () => {
+      const duplications = [1, 'pig', 'pig', 2, 3, 'pig']
+      const noDuplications = cookbook.checkForDuplicates(duplications);
+      expect(noDuplications).to.deep.equal([1, 'pig', 2, 3]);
+    })
   });
 })
