@@ -1,8 +1,7 @@
 @import 'variables';
 body,
 html {
-    height: 100vh;
-    width: 100%;
+    width: auto;
 }
 
 body {
@@ -236,8 +235,28 @@ ol {
         display: grid;
         grid-gap: 15px;
         grid-template-columns: repeat(2, 1fr);
-        padding: 15px 0 15px 15px;
+        padding: 15px 15px 15px 15px;
         margin: auto;
         padding-top: 15%;
+    }
+    .card {
+        background-color: $cardColor;
+        border: 3px solid #000;
+        width: 45vw;
+        margin: auto
+    }
+    .nav-button {
+        background-color: $headerColor;
+        font-size: .8em;
+        width: 15%;
+        display: flex;
+        &:hover {
+            background-color: $buttonHover;
+        }
+        ;
+        &:active {
+            background-color: $buttonActive;
+        }
+        ;
     }
 }
