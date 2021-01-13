@@ -75,14 +75,15 @@ h1 {
 .search-bar {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    margin-top: 2vh;
 }
 
 .search-button {
     border: 1px solid #000;
     width: 20%;
-    height: 58px;
-    margin-top: 3px;
+    height: 8vh;
 }
 
 .search-image {
@@ -100,8 +101,6 @@ h1 {
 
 .search-input {
     height: 7vh;
-    padding-left: 10px;
-    padding-top: 5px;
     width: 30%;
 }
 
@@ -230,7 +229,7 @@ ol {
         grid-template-columns: repeat(2, 1fr);
         padding: 15px 15px 15px 15px;
         // margin: auto;
-        padding-top: 15%;
+        padding-top: 5%;
     }
     .card {
         width: 35vw;
@@ -247,8 +246,6 @@ ol {
         color: $headingTextColor;
         border-right: 2px solid #000;
         font-size: 2.1em;
-        margin-top: 0;
-        margin-bottom: 0;
         width: 30%;
     }
     .user-info {
@@ -266,8 +263,26 @@ ol {
     }
     .recipe-name {
         display: block;
-        font-size: auto;
+        font-size: 4vw;
         text-align: center;
-        overflow: scroll;
+    }
+    .add {
+        width: 3vh;
+    }
+    .favorite {
+        width: 4vh;
+    }
+    .search-bar {
+        padding-top: 2vw;
+        align-items: center;
+        height: 6vh;
+    }
+    .search-button {
+        border: 1px solid #000;
+        width: 20%;
+        height: 6vh;
+    }
+    .search-input {
+        height: 5vh;
     }
 }
