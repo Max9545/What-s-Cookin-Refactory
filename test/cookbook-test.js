@@ -33,7 +33,7 @@ describe.only('Cookbook', () => {
       expect(cookbook.findRecipe('cake')).to.deep.equal([recipeData[22], recipeData[27]]);
     });
 
-    it.only('Should be able to filter through its array by tag', () => {
+    it('Should be able to filter through its array by tag', () => {
       expect(cookbook.findRecipe('starter').length).to.equal(9);
       expect(cookbook.findRecipe('Starter').length).to.equal(9);
     })
@@ -42,5 +42,10 @@ describe.only('Cookbook', () => {
       expect(cookbook.findRecipe('YOlk').length).to.equal(2);
       expect(cookbook.findRecipe('yolk').length).to.equal(2);
     });
+
+    it('Should be able to filter and find any number of recipes related to the search input', () => {
+      expect(cookbook.findRecipe('pork').length).to.equal(3);
+      expect(cookbook.findRecipe('BAr').length).to.equal(5);
+    })
   });
 })
