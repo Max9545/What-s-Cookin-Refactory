@@ -9,13 +9,13 @@ let domUpdates = {
        class='card'>
        <header id='${recipe.id}' class='card-header'>
        <label for='add-button' class='hidden'>Click to add recipe</label>
-       <button id='${recipe.id}'  class='add-button card-button'>
+       <button id='${recipe.id}'  class='add-button card-button' aria-label='add to my recipes button'>
        <img id='${recipe.id}' class='add'
        src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
        recipes to cook'></button>
        <label for='favorite-button' class='hidden'>Click to favorite recipe
        </label>
-       <button id='${recipe.id}'class='favorite favorite${recipe.id} card-button'>
+       <button id='${recipe.id}'class='favorite favorite${recipe.id} card-button' aria-label='add to my favorites button'>
        </button></header>
        <img id='${recipe.id}' tabindex='0' class='card-picture'
        src='${recipe.image}' alt='Food from recipe'>
@@ -29,13 +29,13 @@ let domUpdates = {
       class='card'>
       <header id='${recipe.id}' class='card-header'>
       <label for='add-button' class='hidden'>Click to add recipe</label>
-      <button id='${recipe.id}'  class='add-button card-button'>
+      <button id='${recipe.id}'  class='add-button card-button' aria-label='add to my recipes button'>
       <img id='${recipe.id}' class='add'
       src='https://image.flaticon.com/icons/svg/32/ 32339.svg' alt='Add to
       recipes to cook'></button>
       <label for='favorite-button' class='hidden'>Click to favorite recipe
       </label>
-      <button id='${recipe.id}'class='favorite favorite${recipe.id} card-button'>
+      <button id='${recipe.id}'class='favorite favorite${recipe.id} card-button' aria-label='add to my favorites button'>
       </button></header>
       <img id='${recipe.id}' tabindex='0' class='card- picture'
       src='${recipe.image}' alt='Food from recipe'>
@@ -67,7 +67,7 @@ let domUpdates = {
     }
   },
 
-  populateRecipeCard(cardArea, recipeObject, costInDollars, array) {
+  populateRecipeCard(cardArea, recipeObject, costInDollars) {
     cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
     It will cost: <span class='cost recipe-info'>
