@@ -21,7 +21,7 @@ let domUpdates = {
        src='${recipe.image}' alt='Food from recipe'>
        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
        </div>`)
-      })
+      });
     } else {
       const recipe = recipesList;
 
@@ -53,20 +53,20 @@ let domUpdates = {
     userName.innerText = `Welcome, ${user.name}.`;
   },
 
-    connectWithClassList(method, className, event, element) {
-        if (method === 'add' && element) {
-            element.classList.add(className);
-        } else if (method === 'remove' && element) {
-            element.classList.remove(className);
-        } else if (method === 'add' && element === undefined) {
-            event.target.classList.add(className);
-        } else if (method === 'remove' && element === undefined) {
-            event.target.classList.remove(className);
-        } else if (method === 'contains') {
-            return event.target.classList.contains(className);
-        }
-    },
-      
+  connectWithClassList(method, className, event, element) {
+    if (method === 'add' && element) {
+      element.classList.add(className);
+    } else if (method === 'remove' && element) {
+      element.classList.remove(className);
+    } else if (method === 'add' && element === undefined) {
+      event.target.classList.add(className);
+    } else if (method === 'remove' && element === undefined) {
+      event.target.classList.remove(className);
+    } else if (method === 'contains') {
+      return event.target.classList.contains(className);
+    }
+  },
+
   populateRecipeCard(cardArea, recipeObject, costInDollars, array) {
     cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
@@ -76,19 +76,19 @@ let domUpdates = {
     Instructions:<ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
-        let ingredientsSpan = document.querySelector('.ingredients');
-        let instructionsSpan = document.querySelector('.instructions');
-        recipeObject.ingredients.forEach(ingredient => {
-            ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
+    const ingredientsSpan = document.querySelector('.ingredients');
+    const instructionsSpan = document.querySelector('.instructions');
+    recipeObject.ingredients.forEach(ingredient => {
+      ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
       ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
       ${ingredient.name} </li></ul>
       `)
-        })
-        recipeObject.instructions.forEach(instruction => {
-            instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
+    });
+    recipeObject.instructions.forEach(instruction => {
+      instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
       ${instruction.instruction}</li>
       `)
-        })
-    }
+    });
+  }
 }
 export default domUpdates;
