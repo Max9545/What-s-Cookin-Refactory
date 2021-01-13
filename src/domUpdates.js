@@ -43,6 +43,10 @@ let domUpdates = {
     }
   },
 
+  displayNoResults(cardArea) {
+    cardArea.innerHTML = `<article class='no-results'>Sorry, we couldn't find anything matching your search criteria. Try something else!</article>`
+  },
+
   greetUser(user) {
     const userName = document.querySelector('.user-info');
     userName.innerText = `Welcome, ${user.name}.`;

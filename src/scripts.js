@@ -155,5 +155,9 @@ function displaySearchRecipes(event) {
   event.preventDefault();
   const searchInput = document.querySelector('#search-input');
   const filteredRecipes = cookbook.findRecipe(searchInput.value, ingredientData);
-  domUpdates.displayCards(filteredRecipes, cardArea);
+  if (filteredRecipes.length) {
+    domUpdates.displayCards(filteredRecipes, cardArea)
+  } else {
+    domUpdates.displayNoResults(cardArea);
+  }
 }
