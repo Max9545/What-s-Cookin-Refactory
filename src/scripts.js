@@ -13,6 +13,7 @@ const favoriteButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const recipesToCookButton = document.querySelector('.view-to-cook')
 const cardArea = document.querySelector('.all-cards');
+// const addRecipeButton = document.querySelector('.add-button')
 
 let user, users, pantry, cookbook, ingredientData;
 
@@ -22,6 +23,7 @@ homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
 cardArea.addEventListener("click", conditionalsCardButtons);
+// addRecipeButton.addEventListener('click', addCardToCookList)
 
 
 function loadData() {
@@ -64,6 +66,7 @@ function onStartup() {
     pantry = new Pantry(newUser.pantry)
     domUpdates.greetUser(user);
     getFavorites();
+    getRecipesToCook();
 }
 
 
@@ -77,21 +80,19 @@ function viewFavorites() {
 
 function viewRecipesToCook() {
     if (user.recipesToCook.length) {
+
+        domUpdates.connectWithClassList('add', 'hidden', event, recipesToCookButton);
         domUpdates.displayCards(user.recipesToCook, cardArea);
+        getRecipesToCook()
     }
-    user.recipesToCook.forEach(recipe => {
-        if (user.favoriteRecipes.includes(recipe)) {
-            let recipeID = document.querySelector(`.favorite${recipe.id}`);
-            domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
-        }
-    })
 }
+
 
 function favoriteCard(event) {
     let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+
     if (!domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
         domUpdates.connectWithClassList('add', 'favorite-active', event);
-
         user.addToFavorites(specificRecipe, 'favoriteRecipes');
     } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
         domUpdates.connectWithClassList('remove', 'favorite-active', event);
@@ -103,12 +104,15 @@ function favoriteCard(event) {
 
 function addCardToCookList(event) {
     let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+
     if (!domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
         domUpdates.connectWithClassList('add', 'cook-list-active', event);
-        user.addToFavorites(specificRecipe, 'recipesToCook');
+        user.addToRecipesToCook(specificRecipe, 'recipesToCook');
     } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
         domUpdates.connectWithClassList('remove', 'cook-list-active', event);
-        user.removeFromFavorites(specificRecipe, 'recipesToCook')
+        user.removeFromRecipesToCook(specificRecipe, 'recipesToCook')
+        domUpdates.displayCards(user.recipesToCook, cardArea);
+        getRecipesToCook()
     }
 }
 
@@ -141,6 +145,15 @@ function getFavorites() {
         user.favoriteRecipes.forEach(recipe => {
             let recipeID = document.querySelector(`.favorite${recipe.id}`);
             domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
+        })
+    }
+}
+
+function getRecipesToCook() {
+    if (user.recipesToCook.length) {
+        user.recipesToCook.forEach(recipe => {
+            let recipeID = document.querySelector(`.recipe${recipe.id}`);
+            domUpdates.connectWithClassList('add', 'cook-list-active', event, recipeID);
         })
     }
 }
