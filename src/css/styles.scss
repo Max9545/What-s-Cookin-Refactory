@@ -28,8 +28,8 @@ body {
 .button-container {
     display: flex;
     align-items: center;
-    height: 50%;
-    width: 100%;
+    height: 100%;
+    width: 50%;
     justify-content: space-evenly;
     padding-top: 5%;
 }
@@ -240,7 +240,10 @@ ol {
     }
     .nav-button {
         font-size: .7em;
-        width: 15%;
+        width: 12vw;
+        height: 6vh;
+        flex-direction: column;
+        justify-content: center;
     }
     h1 {
         color: $headingTextColor;
@@ -284,5 +287,12 @@ ol {
     }
     .search-input {
         height: 5vh;
+    }
+    .button-container {
+        // flex-wrap: wrap;
+        // flex-direction: column;
+    }
+    .button-wrapper {
+        width: 75%
     }
 }
