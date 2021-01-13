@@ -9,9 +9,10 @@ import User from './user';
 import Cookbook from './cookbook';
 import domUpdates from './domUpdates';
 
+const homeButton = document.querySelector('.home');
 const favoriteButton = document.querySelector('.view-favorites');
-const homeButton = document.querySelector('.home')
-const recipesToCookButton = document.querySelector('.view-to-cook')
+const recipesToCookButton = document.querySelector('.view-to-cook');
+const searchButton = document.querySelector('#search-button');
 const cardArea = document.querySelector('.all-cards');
 // const addRecipeButton = document.querySelector('.add-button')
 
@@ -22,39 +23,43 @@ window.onload = loadData();
 homeButton.addEventListener("click", conditionalsCardButtons);
 favoriteButton.addEventListener('click', viewFavorites);
 recipesToCookButton.addEventListener('click', viewRecipesToCook);
+searchButton.addEventListener('click', displaySearchRecipes);
 cardArea.addEventListener("click", conditionalsCardButtons);
 // addRecipeButton.addEventListener('click', addCardToCookList)
 
 
 function loadData() {
-    getRecipeData();
-    getIngredientData();
-    getUserData();
+  getIngredientData();
+  getRecipeData();
+  getUserData();
 }
+//should these three functions exist in donUpdates or in APIcalls, instead?
 
 function getUserData() {
-    fetch("http://localhost:3001/api/v1/users")
-        .then((response) => response.json())
-        .then(userData => users = userData)
-        .then((userData) => onStartup());
-}
 
-function getRecipeData() {
-    fetch("http://localhost:3001/api/v1/recipes")
-        .then((response) => response.json())
-        .then((recipeData) => {
-            cookbook = new Cookbook(recipeData)
-            domUpdates.displayCards(cookbook.recipes, cardArea)
-        })
+  fetch("http://localhost:3001/api/v1/users")
+    .then((response) => response.json())
+    .then(userData => users = userData)
+    .then((userData) => onStartup());
 }
 
 function getIngredientData() {
-    fetch("http://localhost:3001/api/v1/ingredients")
-        .then(response => response.json())
-        .then(data => {
-            ingredientData = data;
-            getRecipeData();
-        })
+  fetch("http://localhost:3001/api/v1/ingredients")
+    .then(response => response.json())
+    .then(data => {
+      ingredientData = data;
+      getRecipeData();
+    })
+}
+
+function getRecipeData() {
+  fetch("http://localhost:3001/api/v1/recipes")
+    .then((response) => response.json())
+    .then((recipeData) => {
+      cookbook = new Cookbook(recipeData)
+      cookbook.addIngredientNames(ingredientData)
+      domUpdates.displayCards(cookbook.recipes, cardArea)
+    })
 }
 
 function onStartup() {
@@ -86,6 +91,7 @@ function viewRecipesToCook() {
         getRecipesToCook()
     }
 }
+//method needs to exist in user?
 
 
 function favoriteCard(event) {
@@ -115,6 +121,7 @@ function addCardToCookList(event) {
         getRecipesToCook()
     }
 }
+//use user method
 
 function conditionalsCardButtons(event) {
     if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
@@ -149,22 +156,13 @@ function getFavorites() {
     }
 }
 
-function getRecipesToCook() {
-    if (user.recipesToCook.length) {
-        user.recipesToCook.forEach(recipe => {
-            let recipeID = document.querySelector(`.recipe${recipe.id}`);
-            domUpdates.connectWithClassList('add', 'cook-list-active', event, recipeID);
-        })
-    }
-}
-
 function displaySearchRecipes(event) {
-    let filteredRecipes = cookbook.findRecipes(searchInput.value.toLowerCase());
-    domUpdates.displayCards(filteredRecipes, cardArea);
-    filteredRecipes.forEach(recipe => {
-        if (user.favoriteRecipes.includes(recipe)) {
-            let recipeID = document.querySelector(`.favorite${recipe.id}`);
-            domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
-        }
-    })
+  event.preventDefault();
+  const searchInput = document.querySelector('#search-input');
+  const filteredRecipes = cookbook.findRecipe(searchInput.value, ingredientData);
+  if (filteredRecipes.length) {
+    domUpdates.displayCards(filteredRecipes, cardArea)
+  } else {
+    domUpdates.displayNoResults(cardArea);
+  }
 }
