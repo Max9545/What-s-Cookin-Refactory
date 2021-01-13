@@ -27,36 +27,38 @@ cardArea.addEventListener("click", conditionalsCardButtons);
 
 
 function loadData() {
-  getRecipeData();
   getIngredientData();
+  getRecipeData();
   getUserData();
 }
 //should these three functions exist in donUpdates or in APIcalls, instead?
 
 function getUserData() {
   fetch("http://localhost:3001/api/v1/users")
-  .then((response) => response.json())
-  .then(userData => users = userData)
-  .then((userData) => onStartup());
-}
-
-function getRecipeData() {
-  fetch("http://localhost:3001/api/v1/recipes")
-  .then((response) => response.json())
-  .then((recipeData) => {
-    cookbook = new Cookbook(recipeData)
-    domUpdates.displayCards(cookbook.recipes, cardArea)
-  })
+    .then((response) => response.json())
+    .then(userData => users = userData)
+    .then((userData) => onStartup());
 }
 
 function getIngredientData() {
   fetch("http://localhost:3001/api/v1/ingredients")
-  .then(response => response.json())
-  .then(data => {
-    ingredientData = data;
-    getRecipeData();
-  })
+    .then(response => response.json())
+    .then(data => {
+      ingredientData = data;
+      getRecipeData();
+    })
 }
+
+function getRecipeData() {
+  fetch("http://localhost:3001/api/v1/recipes")
+    .then((response) => response.json())
+    .then((recipeData) => {
+      cookbook = new Cookbook(recipeData)
+      cookbook.addIngredientNames(ingredientData)
+      domUpdates.displayCards(cookbook.recipes, cardArea)
+    })
+}
+
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -98,7 +100,7 @@ function favoriteCard(event) {
     user.addToFavorites(specificRecipe, 'favoriteRecipes');
   } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
     domUpdates.connectWithClassList('remove', 'favorite-active', event);
-    user.removeFromFavorites(specificRecipe,'favoriteRecipes')
+    user.removeFromFavorites(specificRecipe, 'favoriteRecipes')
     domUpdates.displayCards(user.favoriteRecipes, cardArea);
     getFavorites();
   }
@@ -111,7 +113,7 @@ function addCardToCookList(event) {
     user.addToFavorites(specificRecipe, 'recipesToCook');
   } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
     domUpdates.connectWithClassList('remove', 'cook-list-active', event);
-    user.removeFromFavorites(specificRecipe,'recipesToCook')
+    user.removeFromFavorites(specificRecipe, 'recipesToCook')
   }
 }
 //use user method
@@ -152,7 +154,7 @@ function getFavorites() {
 function displaySearchRecipes(event) {
   event.preventDefault();
   const searchInput = document.querySelector('#search-input');
-  let filteredRecipes = cookbook.findRecipe(searchInput.value);
+  const filteredRecipes = cookbook.findRecipe(searchInput.value, ingredientData);
   domUpdates.displayCards(filteredRecipes, cardArea);
 
   // filteredRecipes.forEach(recipe => {
