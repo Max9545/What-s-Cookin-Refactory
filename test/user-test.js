@@ -136,6 +136,45 @@ describe('User', () => {
         expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
     });
 
+
+    it('Should have a property of favoriteRecipes with a default value', () => {
+        expect(user1.recipesToCook).to.eql([]);
+    });
+
+    it('Should be able to add recipes to recipesToCook', () => {
+
+        user1.addToRecipesToCook(recipeData[0])
+
+        expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
+    });
+
+    it('Should be able to remove recipes from recipesToCook', () => {
+
+        user1.addToRecipesToCook(recipeData[0])
+
+        user1.removeFromRecipesToCook(recipeData[0]);
+
+        expect(user1.recipesToCook).to.eql([]);
+    });
+
+    it('Should be able to filter through recipesToCook by tag', () => {
+
+        user1.addToRecipesToCook(recipeData[0]);
+
+        user1.addToRecipesToCook(recipeData[1]);
+
+        expect(user1.filterRecipeToCooks('antipasti')).to.eql([recipeData[0]]);
+    });
+
+    it('Should be able to search recipesToCook by name or ingredient', () => {
+
+        user1.addToRecipesToCook(recipeData[0]);
+
+        user1.addToRecipesToCook(recipeData[1]);
+
+        expect(user1.findRecipesToCook('egg')).to.eql([recipeData[0]]);
+    });
+
     it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
 
         let recipeIngredients = recipeData[0].ingredients
@@ -182,7 +221,7 @@ describe('User', () => {
             'unsalted butter': 0.5,
             'vanilla extract': 0.5
         }
-        console.log(user2.checkPantry(recipeIngredients))
+
         expect(user2.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithAmount);
     });
 });

@@ -14,29 +14,49 @@ class User {
         }
     }
 
+    addToRecipesToCook(recipe) {
+        if (!this.recipesToCook.includes(recipe)) {
+            this.recipesToCook.push(recipe)
+        }
+    }
+
     removeFromFavorites(recipe) {
         const i = this.favoriteRecipes.indexOf(recipe);
         this.favoriteRecipes.splice(i, 1)
     }
 
+    removeFromRecipesToCook(recipe) {
+        const i = this.recipesToCook.indexOf(recipe);
+        this.recipesToCook.splice(i, 1)
+    }
+
     filterFavorites(tag) {
-        return this.favoriteRecipes.filter(recipe => {
-            return recipe.tags.includes(tag);
-        });
+        return this.favoriteRecipes.filter(recipe => recipe.tags.includes(tag));
+    }
+
+    filterRecipeToCooks(tag) {
+        return this.recipesToCook.filter(recipe => recipe.tags.includes(tag));
     }
 
     findFavorites(strgToSrch) {
-        return this.favoriteRecipes.filter(recipe => {
-            return recipe.name.includes(strgToSrch) ||
-                recipe.ingredients.find(ingredient => {
-                    return ingredient.name.includes(strgToSrch)
-                });
-        });
+        return this.favoriteRecipes.filter(recipe =>
+            recipe.name.includes(strgToSrch) ||
+            recipe.ingredients.find(ingredient => ingredient.name.includes(strgToSrch))
+        );
     }
+
+    findRecipesToCook(strgToSrch) {
+        return this.recipesToCook.filter(recipe =>
+            recipe.name.includes(strgToSrch) || recipe.ingredients.find(ingredient => ingredient.name.includes(strgToSrch))
+        )
+    }
+
     checkPantry(ingredientsToFind) {
+
         let result
 
         let pantryNameList = []
+
         this.pantry.forEach(pantryItem => pantryNameList.push(pantryItem.id))
 
         if (ingredientsToFind.every(ingredient => pantryNameList.includes(ingredient.id))) {

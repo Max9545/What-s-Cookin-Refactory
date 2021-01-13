@@ -1,12 +1,11 @@
 import {
-  expect
+    expect
 } from 'chai';
 
 
 import recipeData from './data/recipes';
 import ingredientsData from './data/ingredients'
 import Cookbook from '../src/cookbook';
-
 
 describe.only('Cookbook', () => {
   let cookbook;
