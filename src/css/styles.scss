@@ -1,8 +1,7 @@
 @import 'variables';
-
-body, html {
-  height: 100vh;
-  width: 100%;
+body,
+html {
+    width: auto;
 }
 
 body {
@@ -20,40 +19,43 @@ body {
     align-items: center;
     padding: 1%;
     height: 15vh;
+    width: 100vw;
 }
 
 .error-message {
-  margin: 0px;
+    margin: 0px;
 }
 
 .button-container {
-  display: flex;
-  align-items: center;
-  height: 50%;
-  width: 100%;
-  justify-content: space-evenly;
-  padding-top: 5%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    justify-content: space-evenly;
+    padding-top: 5%;
 }
 
 .button-wrapper {
-  height: 100%;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .nav-button {
     background-color: $headerColor;
-    font-size: 130%;
+    font-size: 1.3em;
     margin: 1%;
     display: flex;
     &:hover {
-    background-color: $buttonHover;
-  };
-  &:active {
-    background-color: $buttonActive;
-  };
+        background-color: $buttonHover;
+    }
+    ;
+    &:active {
+        background-color: $buttonActive;
+    }
+    ;
 }
 
 h1 {
@@ -66,7 +68,7 @@ h1 {
 }
 
 .user-info {
-    font-size: 180%;
+    font-size: 1.8em;
     text-align: center;
     width: 40%
 }
@@ -74,50 +76,53 @@ h1 {
 .search-bar {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    margin-top: 2vh;
 }
 
 .search-button {
     border: 1px solid #000;
     width: 20%;
-    height: 58px;
-    margin-top: 3px;
+    height: 8vh;
 }
 
 .search-image {
-  height: 25px;
-  width: 25px;
-  &:hover {
-    background-color: $buttonHover;
-  };
-  &:active {
-    background-color: $buttonActive;
-  };
+    height: 25px;
+    width: 25px;
+    &:hover {
+        background-color: $buttonHover;
+    }
+    ;
+    &:active {
+        background-color: $buttonActive;
+    }
+    ;
 }
 
 .search-input {
-  font-size: 100%;
-  height: 7vh;
-  padding-left: 10px;
-  padding-top: 5px;
-  width: 30%;
+    height: 7vh;
+    width: 30%;
 }
+
 main {
-  background-color: $mainColor;
-  height: 100%;
-  width: 100%;
+    background-color: $mainColor;
+    height: 100%;
+    width: 100%;
 }
 
 .card-button {
-  border: 1px solid $borderColor;
-  height: 29px;
-  margin: 3px;
-  &:hover {
-    background-color: $buttonHover;
-  };
-  &:active {
-    background-color: $buttonActive;
-  };
+    border: 1px solid $borderColor;
+    height: 29px;
+    margin: 3px;
+    &:hover {
+        background-color: $buttonHover;
+    }
+    ;
+    &:active {
+        background-color: $buttonActive;
+    }
+    ;
 }
 
 .add {
@@ -167,7 +172,7 @@ img {
 }
 
 .all-recipe-info {
-   display: flex;
+    display: flex;
     background-color: $mainTextColor;
     // font-size: 220%;
     flex-direction: column;
@@ -176,19 +181,19 @@ img {
 }
 
 ol {
-  color: $headerColor;
-  font-size: 220%;
-  width: 100%;
+    color: $headerColor;
+    font-size: 2.2em;
+    width: 100%;
 }
 
 .recipe-container {
-  padding: 6%;
-  padding-top: 0;
+    padding: 6%;
+    padding-top: 0;
 }
 
 .recipe-name {
     display: block;
-    font-size: 150%;
+    font-size: 1.5em;
     text-align: center;
 }
 
@@ -198,15 +203,101 @@ ol {
     margin: 10px 3% 8px 2.6%;
     width: 94%;
     &:active {
-    border: 2px solid $borderColor;
-  }
-  &:hover {
-    opacity: 0.5;
-    border: 2px solid $buttonHover;
-  }
+        border: 2px solid $borderColor;
+    }
+    &:hover {
+        opacity: 0.5;
+        border: 2px solid $buttonHover;
+    }
 }
 
 .favorite-active {
     background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
     background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 480px) {
+    .main-header {
+        height: 12vh;
+        right: auto;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+    .main {
+        width: auto
+    }
+    .all-cards {
+        grid-gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 15px 15px 15px 15px;
+        padding-top: 5%;
+    }
+    .card {
+        width: 35vw;
+        height: 35vh;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .nav-button {
+        font-size: .7em;
+        width: 28vw;
+        height: 6vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    h1 {
+        color: $headingTextColor;
+        border-right: 2px solid #000;
+        font-size: 2.1em;
+        width: 25%;
+        padding-right: 3vw;
+    }
+    .user-info {
+        width: 30%;
+    }
+    .card-picture {
+        border: 1px solid #000;
+        height: 40%;
+        margin: 10px 3% 8px 2.6%;
+        width: 74%;
+        align-self: center;
+        border: 2px solid $borderColor;
+    }
+    .recipe-name {
+        display: block;
+        font-size: 4vw;
+        text-align: center;
+    }
+    .add {
+        width: 3vh;
+    }
+    .favorite {
+        width: 4vh;
+    }
+    .search-bar {
+        padding-top: 2vw;
+        align-items: center;
+        height: 6vh;
+        margin-top: 13vh;
+    }
+    .search-button {
+        border: 1px solid #000;
+        width: 6vh;
+        height: 6vh;
+    }
+    .search-input {
+        height: 5vh;
+    }
+    .user-info {
+        font-size: 1.2em;
+        // text-align: center;
+        width: 68%
+    }
+    .button-container {
+        display: flex;
+        width: 75%;
+        align-self: center;
+    }
 }
