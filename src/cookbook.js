@@ -49,17 +49,22 @@ class Cookbook {
   }
 
   findAllRecipes(searchText) {
+    let foundRecipes;
     if (this.findRecipeByName(searchText) && this.findRecipeByTag(searchText) && this.findRecipeByIngredient(searchText)) {
-      return this.findRecipeByName(searchText).concat(this.findRecipeByTag(searchText), this.findRecipeByIngredient(searchText));
+      foundRecipes = this.findRecipeByName(searchText).concat(this.findRecipeByTag(searchText), this.findRecipeByIngredient(searchText));
     } else if (this.findRecipeByName(searchText) && this.findRecipeByTag(searchText)) {
-      return this.findRecipeByName(searchText).concat(this.findRecipeByTag(searchText))
+      foundRecipes = this.findRecipeByName(searchText).concat(this.findRecipeByTag(searchText))
     } else if (this.findRecipeByTag(searchText) && this.findRecipeByIngredient(searchText)) {
-      return this.findRecipeByTag(searchText).concat(this.findRecipeByIngredient(searchText))
+      foundRecipes = this.findRecipeByTag(searchText).concat(this.findRecipeByIngredient(searchText))
     } else if (this.findRecipeByName(searchText) && this.findRecipeByIngredient(searchText)) {
-      return this.findRecipeByName(searchText).concat(this.findRecipeByIngredient(searchText))
+      foundRecipes = this.findRecipeByName(searchText).concat(this.findRecipeByIngredient(searchText))
     }
+    return this.checkForDuplicates(foundRecipes)
   }
 
+  checkForDuplicates(filteredRecipes) {
+    return filteredRecipes.filter((recipe, index) => filteredRecipes.indexOf(recipe) === index)
+  }
 
   capitalize(searchText) {
     return searchText.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
