@@ -216,6 +216,12 @@ ol {
     background-repeat: no-repeat;
 }
 
+.no-results>article {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 @media screen and (max-width: 480px) {
     .main-header {
         height: 12vh;

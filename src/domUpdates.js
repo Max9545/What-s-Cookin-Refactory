@@ -45,7 +45,9 @@ let domUpdates = {
   },
 
   displayNoResults(cardArea) {
-    cardArea.innerHTML = `<article class='no-results'>Sorry, we couldn't find anything matching your search criteria. Try something else!</article>`
+    cardArea.classList.remove('all-cards')
+    cardArea.classList.add('no-results')
+    cardArea.innerHTML = `<article>Sorry, we couldn't find anything matching your search criteria. Try something else!</article>`
   },
 
   greetUser(user) {
@@ -67,7 +69,9 @@ let domUpdates = {
     }
   },
 
+
   populateRecipeCard(cardArea, recipeObject, costInDollars) {
+   
     cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
     It will cost: <span class='cost recipe-info'>
@@ -76,19 +80,25 @@ let domUpdates = {
     Instructions:<ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
+
+
     const ingredientsSpan = document.querySelector('.ingredients');
     const instructionsSpan = document.querySelector('.instructions');
+
     recipeObject.ingredients.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
       ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
       ${ingredient.name} </li></ul>
       `)
+
     });
+
     recipeObject.instructions.forEach(instruction => {
       instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
       ${instruction.instruction}</li>
       `)
     });
+
   }
 }
 export default domUpdates;
