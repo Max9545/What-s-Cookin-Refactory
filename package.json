@@ -1,4 +1,5 @@
 {
+    "homepage": "http://Max9545.github.io/What-s-Cookin-Refactory",
     "http: //USERNAME.github.io/What-s-Cookin-Refactory"
     "name": "webpack-starter-kit",
     "version": "1.0.0",
@@ -19,7 +20,6 @@
     "author": "Turing School of Software and Design",
     "license": "MIT",
     "devDependencies": {
-        "gh-pages": "^1.1.0",
         "chai": "^4.2.0",
         "css-loader": "^5.0.1",
         "eslint": "^7.17.0",
