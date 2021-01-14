@@ -1,105 +1,100 @@
-# Webpack Starter Kit
 
-## Clone This Repo
+##   Refactor Tractor
+> A Front-End Project by  [Gabrielle Joyce](https://github.com/gaj23) , [Max Bregman](https://github.com/Max9545) & [Ben Prat](https://github.com/benjaminprat)
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+> [Link To Deployed Webpage](https://max9545.github.io/What-s-Cookin-Refactory/)
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+## Contents
+1. [Overview and Goals](#overview)
+2. [ Installation & Technologies](#installation)
+3. [Desktop ](#desktop)
+4. [View Recipe](#view-recipe)
+5. [Add Favorite](#add-favorite)
+6. [Search Recipes ](#search-recipes)
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
 
-## Setup
+## Overview 
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
+`Refactor Tractor - What's Cookin` is a group project for Module 2 at [Turing School of Software and Design](https://turing.io/). We were tasked to implement new technologies to a pre-existing codebase we were unfamiliar with.  This recipe tracking/ meal planning application allows users to view a list of recipes, favorite their own recipes, and add recipes to a 'cookbook' for later use. See the original project spec [here](https://frontend.turing.io/projects/whats-cookin.html).
 
-Then install the library dependencies. Run:
 
-```bash
-npm install
+
+### Goals
+
+``` Markdown
+* Navigate, refactor and build on the pre-existing code of someone else. 
+* Make network requests to API endpoints to retrieve and manipulate data
+* Use inheritance to DRY repetitive logic
+* Ensure application follows best practices for accessibility
+* Leverage Sass to DRY up CSS
+* Incorporate Webpack to streamline workflow process
+
+
 ```
-
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text and a pink background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
-
-## Where to Add Your Code
-
-### JavaScript
-
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
-
-**Create all of your feature code files in the `src` directory.**
-
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
-
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
-
-### HTML
-
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
-
-### CSS (SCSS/SASS)
-
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
-
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
-
-### Images
-
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
-
-## How to View Your Code in Action
-
-In the terminal, run:
-
-```bash
-npm start
-```
-
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
-
-```bash
-Project is running at http://localhost:8080/
-```
-
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
 
 ---
+ ## Installation
+**Clone this repository**
+* `git clone`   git@github.com:Max9545/What-s-Cookin-Refactory.git
 
-## Test Files Organization
+**Change into the directory and install the project dependencies**
 
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
+* `cd` into directory and run `npm install` for dependencies
 
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
+* run  `npm start`
 
-## Running Your Tests
+* In the browser, navigate to http://localhost:8080
+* To test code run `npm test`
 
-Run your test suite using the command:
 
-```bash
-npm test
-```
+ ## Technologies
 
-The test results will output to the terminal.
+  - JavaScript
+  - Sass
+  - Mocha & Chai
+  - Webpack
+  - Fetch
+
+  
+  This project was developed on macOS Catalina 11.0.6 and tested in Chrome browsers (Version 85.0.4183.83).
+
+
+
+ >[Back to Top](#whats-cookin)
+
+## Desktop 
+
+![Refactor Desktop ](https://media.giphy.com/media/ajLfELnjltLKB4NVdZ/giphy.gif "Desktop")
+
+## View Recipe
+![View-Recipe ](https://media.giphy.com/media/LVN5s70HOau4aJhqiH/giphy.gif "View-Recipe")
+
+
+
+## Add Favorite
+
+![Add-Favorite](https://media.giphy.com/media/wc85S8bVyZ37j27Yt0/giphy.gif "Add-Favorite")
+
+
+## Search Recipes 
+![Search-Recipe](https://media.giphy.com/media/lC0B8oekHACGpqPqGB/giphy.gif "Search-Recipe")
+
+ ## Challenges  
+ 
+ + Understanding where to start in a codebase with many issues.
+ + Working with an API to GET data and resolve promises.
++ Despite using a project board, being able to prioritize tasks. 
 
 ---
+ ## Wins
+ 
+  + Able to successfully divide and conquer as well as pair program.
+  + Strong workflow and use of version control allowed us to avoid major conflicts.
+  + Team problem solving and collaboration.
+  
+  
 
-## Linting Your Code
+  
+  
+>[Back to Top](#refactor-tractor)
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
