@@ -45,7 +45,9 @@ let domUpdates = {
   },
 
   displayNoResults(cardArea) {
-    cardArea.innerHTML = `<article class='no-results'>Sorry, we couldn't find anything matching your search criteria. Try something else!</article>`
+    cardArea.classList.remove('all-cards')
+    cardArea.classList.add('no-results')
+    cardArea.innerHTML = `<article>Sorry, we couldn't find anything matching your search criteria. Try something else!</article>`
   },
 
   greetUser(user) {
@@ -53,20 +55,20 @@ let domUpdates = {
     userName.innerText = `Welcome, ${user.name}.`;
   },
 
-    connectWithClassList(method, className, event, element) {
-        if (method === 'add' && element) {
-            element.classList.add(className);
-        } else if (method === 'remove' && element) {
-            element.classList.remove(className);
-        } else if (method === 'add' && element === undefined) {
-            event.target.classList.add(className);
-        } else if (method === 'remove' && element === undefined) {
-            event.target.classList.remove(className);
-        } else if (method === 'contains') {
-            return event.target.classList.contains(className);
-        }
-    },
-      
+  connectWithClassList(method, className, event, element) {
+    if (method === 'add' && element) {
+      element.classList.add(className);
+    } else if (method === 'remove' && element) {
+      element.classList.remove(className);
+    } else if (method === 'add' && element === undefined) {
+      event.target.classList.add(className);
+    } else if (method === 'remove' && element === undefined) {
+      event.target.classList.remove(className);
+    } else if (method === 'contains') {
+      return event.target.classList.contains(className);
+    }
+  },
+
   populateRecipeCard(cardArea, recipeObject, costInDollars, array) {
     cardArea.innerHTML = `<h2>${recipeObject.name}</h2>
     <p class='all-recipe-info'>
@@ -76,19 +78,19 @@ let domUpdates = {
     Instructions:<ol><span class='instructions recipe-info'>
     </span></ol>
     </p>`;
-        let ingredientsSpan = document.querySelector('.ingredients');
-        let instructionsSpan = document.querySelector('.instructions');
-        recipeObject.ingredients.forEach(ingredient => {
-            ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
+    let ingredientsSpan = document.querySelector('.ingredients');
+    let instructionsSpan = document.querySelector('.instructions');
+    recipeObject.ingredients.forEach(ingredient => {
+      ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
       ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
       ${ingredient.name} </li></ul>
       `)
-        })
-        recipeObject.instructions.forEach(instruction => {
-            instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
+    })
+    recipeObject.instructions.forEach(instruction => {
+      instructionsSpan.insertAdjacentHTML('beforebegin', `<li>
       ${instruction.instruction}</li>
       `)
-        })
-    }
+    })
+  }
 }
 export default domUpdates;
