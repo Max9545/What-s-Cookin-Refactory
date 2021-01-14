@@ -1,59 +1,51 @@
-// import './css/base.scss';
 import './css/styles.scss';
 
-
-
-import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import domUpdates from './domUpdates';
 
 const homeButton = document.querySelector('.home');
-const favoriteButton = document.querySelector('.view-favorites');
-const recipesToCookButton = document.querySelector('.view-to-cook');
+const viewFavoritesButton = document.querySelector('.view-favorites');
+const viewRecipesToCookButton = document.querySelector('.view-to-cook');
 const searchButton = document.querySelector('#search-button');
 const cardArea = document.querySelector('.all-cards');
-// const addRecipeButton = document.querySelector('.add-button')
 
-let user, users, pantry, cookbook, ingredientData;
+let user, users, cookbook, ingredientData;
 
 window.onload = loadData();
 
-homeButton.addEventListener("click", conditionalsCardButtons);
-favoriteButton.addEventListener('click', viewFavorites);
-recipesToCookButton.addEventListener('click', viewRecipesToCook);
+homeButton.addEventListener('click', conditionalsCardButtons);
+viewFavoritesButton.addEventListener('click', viewFavorites);
+viewRecipesToCookButton.addEventListener('click', viewRecipesToCook);
 searchButton.addEventListener('click', displaySearchRecipes);
-cardArea.addEventListener("click", conditionalsCardButtons);
-// addRecipeButton.addEventListener('click', addCardToCookList)
+cardArea.addEventListener('click', conditionalsCardButtons);
 
-
+//API calls
 function loadData() {
   getIngredientData();
   getRecipeData();
   getUserData();
 }
-//should these three functions exist in donUpdates or in APIcalls, instead?
 
 function getUserData() {
-
-  fetch("http://localhost:3001/api/v1/users")
+  fetch('http://localhost:3001/api/v1/users')
     .then((response) => response.json())
     .then(userData => users = userData)
-    .then((userData) => onStartup());
+    .then(() => onStartup())
 }
 
 function getIngredientData() {
-  fetch("http://localhost:3001/api/v1/ingredients")
+  fetch('http://localhost:3001/api/v1/ingredients')
     .then(response => response.json())
     .then(data => {
-      ingredientData = data;
-      getRecipeData();
+      ingredientData = data
+      getRecipeData()
     })
 }
 
 function getRecipeData() {
-  fetch("http://localhost:3001/api/v1/recipes")
+  fetch('http://localhost:3001/api/v1/recipes')
     .then((response) => response.json())
     .then((recipeData) => {
       cookbook = new Cookbook(recipeData)
@@ -63,97 +55,98 @@ function getRecipeData() {
 }
 
 function onStartup() {
-    let userId = (Math.floor(Math.random() * 49) + 1)
-    let newUser = users.find(user => {
-        return user.id === Number(userId);
-    });
-    user = new User(userId, newUser.name, newUser.pantry)
-    pantry = new Pantry(newUser.pantry)
-    domUpdates.greetUser(user);
-    getFavorites();
-    getRecipesToCook();
+  const userId = (Math.floor(Math.random() * 49) + 1);
+  const newUser = users.find(user => user.id === Number(userId));
+  user = new User(userId, newUser.name, newUser.pantry);
+  domUpdates.greetUser(user);
+  getFavorites();
+  getRecipesToCook();
 }
 
-
 function viewFavorites() {
-    if (user.favoriteRecipes.length) {
-        domUpdates.connectWithClassList('add', 'hidden', event, favoriteButton);
-        domUpdates.displayCards(user.favoriteRecipes, cardArea);
-        getFavorites();
-    }
+  if (user.favoriteRecipes.length) {
+    domUpdates.connectWithClassList('add', 'hidden', event, viewFavoritesButton);
+    domUpdates.displayCards(user.favoriteRecipes, cardArea);
+    getFavorites();
+  }
 }
 
 function viewRecipesToCook() {
-    if (user.recipesToCook.length) {
-
-        domUpdates.connectWithClassList('add', 'hidden', event, recipesToCookButton);
-        domUpdates.displayCards(user.recipesToCook, cardArea);
-        getRecipesToCook()
-    }
+  if (user.recipesToCook.length) {
+    domUpdates.connectWithClassList('add', 'hidden', event, viewRecipesToCookButton);
+    domUpdates.displayCards(user.recipesToCook, cardArea);
+    getRecipesToCook();
+  }
 }
-//method needs to exist in user?
-
 
 function favoriteCard(event) {
-    let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  const specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id));
 
-    if (!domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
-        domUpdates.connectWithClassList('add', 'favorite-active', event);
-        user.addToFavorites(specificRecipe, 'favoriteRecipes');
-    } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
-        domUpdates.connectWithClassList('remove', 'favorite-active', event);
-        user.removeFromFavorites(specificRecipe, 'favoriteRecipes')
-        domUpdates.displayCards(user.favoriteRecipes, cardArea);
-        getFavorites();
-    }
+  if (!domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
+    domUpdates.connectWithClassList('add', 'favorite-active', event);
+    user.addToFavorites(specificRecipe, 'favoriteRecipes');
+  } else if (domUpdates.connectWithClassList('contains', 'favorite-active', event)) {
+    domUpdates.connectWithClassList('remove', 'favorite-active', event);
+    user.removeFromFavorites(specificRecipe, 'favoriteRecipes');
+    domUpdates.displayCards(user.favoriteRecipes, cardArea);
+    getFavorites();
+  }
 }
 
 function addCardToCookList(event) {
-    let specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  const specificRecipe = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
 
-    if (!domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
-        domUpdates.connectWithClassList('add', 'cook-list-active', event);
-        user.addToRecipesToCook(specificRecipe, 'recipesToCook');
-    } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
-        domUpdates.connectWithClassList('remove', 'cook-list-active', event);
-        user.removeFromRecipesToCook(specificRecipe, 'recipesToCook')
-        domUpdates.displayCards(user.recipesToCook, cardArea);
-        getRecipesToCook()
-    }
+  if (!domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
+    domUpdates.connectWithClassList('add', 'cook-list-active', event);
+    user.addToRecipesToCook(specificRecipe, 'recipesToCook');
+  } else if (domUpdates.connectWithClassList('contains', 'cook-list-active', event)) {
+    domUpdates.connectWithClassList('remove', 'cook-list-active', event);
+    user.removeFromRecipesToCook(specificRecipe, 'recipesToCook');
+    domUpdates.displayCards(user.recipesToCook, cardArea);
+    getRecipesToCook();
+  }
 }
-//use user method
 
 function conditionalsCardButtons(event) {
-    if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
-        favoriteCard(event);
-    } else if (domUpdates.connectWithClassList('contains', 'add-button', event) || domUpdates.connectWithClassList('contains', 'add', event)) {
-        addCardToCookList(event);
-    } else if (domUpdates.connectWithClassList('contains', 'card-picture', event)) {
-        displayDirections(event);
-    } else if (domUpdates.connectWithClassList('contains', 'home', event)) {
-        domUpdates.connectWithClassList('remove', 'hidden', event, favoriteButton);
-        domUpdates.displayCards(cookbook.recipes, cardArea);
-        getFavorites();
-    }
+  if (domUpdates.connectWithClassList('contains', 'favorite', event)) {
+    favoriteCard(event);
+  } else if (domUpdates.connectWithClassList('contains', 'add-button', event) || domUpdates.connectWithClassList('contains', 'add', event)) {
+    addCardToCookList(event);
+  } else if (domUpdates.connectWithClassList('contains', 'card-picture', event)) {
+    displayDirections(event);
+  } else if (domUpdates.connectWithClassList('contains', 'home', event)) {
+    domUpdates.connectWithClassList('remove', 'hidden', event, viewFavoritesButton);
+    domUpdates.displayCards(cookbook.recipes, cardArea);
+    getFavorites();
+  }
 }
 
 function displayDirections(event) {
-    domUpdates.connectWithClassList('remove', 'hidden', event, favoriteButton)
-    let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
-    let recipeObject = new Recipe(newRecipeInfo, ingredientData);
-    let cost = recipeObject.calculateCost();
-    let dollarCost = (cost / 100).toFixed(2);
-    domUpdates.connectWithClassList('add', 'all', event, cardArea);
-    domUpdates.populateRecipeCard(cardArea, recipeObject, dollarCost, ingredientData);
+  domUpdates.connectWithClassList('remove', 'hidden', event, viewFavoritesButton);
+  const newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id));
+  const recipeObject = new Recipe(newRecipeInfo, ingredientData);
+  const cost = recipeObject.calculateCost();
+  const dollarCost = (cost / 100).toFixed(2);
+  domUpdates.connectWithClassList('add', 'all', event, cardArea);
+  domUpdates.populateRecipeCard(cardArea, recipeObject, dollarCost, ingredientData);
 }
 
 function getFavorites() {
-    if (user.favoriteRecipes.length) {
-        user.favoriteRecipes.forEach(recipe => {
-            let recipeID = document.querySelector(`.favorite${recipe.id}`);
-            domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
-        })
-    }
+  if (user.favoriteRecipes.length) {
+    user.favoriteRecipes.forEach(recipe => {
+      const recipeID = document.querySelector(`.favorite${recipe.id}`);
+      domUpdates.connectWithClassList('add', 'favorite-active', event, recipeID);
+    })
+  }
+}
+
+function getRecipesToCook() {
+  if (user.recipesToCook.length) {
+    user.recipesToCook.forEach(recipe => {
+      const recipeID = document.querySelector(`.recipe${recipe.id}`);
+      domUpdates.connectWithClassList('add', 'cook-list-active', event, recipeID);
+    })
+  }
 }
 
 function displaySearchRecipes(event) {
@@ -161,7 +154,7 @@ function displaySearchRecipes(event) {
   const searchInput = document.querySelector('#search-input');
   const filteredRecipes = cookbook.findRecipe(searchInput.value, ingredientData);
   if (filteredRecipes.length) {
-    domUpdates.displayCards(filteredRecipes, cardArea)
+    domUpdates.displayCards(filteredRecipes, cardArea);
   } else {
     domUpdates.displayNoResults(cardArea);
   }

@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset='UTF-8'>
+  <meta charset="UTF-8">
   <title>Whats Cookin</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body role="main">
-  <header class='main-header'>
+  <header class="main-header">
     <h1>What's Cookin'</h1>
-    <p class='user-info'>Welcome, <span class='user-name'>User</span></p>
+    <p class="user-info">Welcome, <span class="user-name">User</span></p>
     <div class="button-wrapper">
       <div class="button-container">
-        <button aria-label="home button" role="button" id='home-button' class='home nav-button' alt="home button">Home</button>
-        <button aria-label="view-cookbook-button" role="button" id='view-cookbook-button' class='view-to-cook nav-button' alt="my recipes button">My Recipes</button>
-        <button aria-label="view-favorites-button" role="button" id='view-favorites-button' class='view-favorites nav-button' alt="my favorites button">My Favorites</button>
+        <button aria-label="home button" role="button" id="home-button" class="home nav-button" alt="home button">Home</button>
+        <button aria-label="view-cookbook-button" role="button" id="view-cookbook-button" class="view-to-cook nav-button" alt="my recipes button">My Recipes</button>
+        <button aria-label="view-favorites-button" role="button" id="view-favorites-button" class="view-favorites nav-button" alt="my favorites button">My Favorites</button>
         <p class="error-message"></p>
       </div>
   </header>
   <main>
-    <form class='search-bar' role="search" role="form">
-      <label for='search-input' class='hidden'>Type search query here</label>
-      <input role="input" id='search-input' class='search-input' type='text' autocomplete="off" placeholder='Search recipes by name or ingredients' value=''>
-      <button aria-label="search-button" role="button" id='search-button' class='search-button' alt="search button">
-        <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
+    <form class="search-bar" role="search" role="form">
+      <label for="search-input" class="hidden">Type search query here</label>
+      <input role="input" id="search-input" class="search-input" type="text" autocomplete="off" placeholder="Search recipes by name or ingredients" value="search bar">
+      <button aria-label="search-button" role="button" id="search-button" class="search-button" alt="search button">
+        <img class="search-image" src="https://image.flaticon.com/icons/svg/660/660029.svg" alt="Search button">
       </button>
     </form>
     <div class="card-section-wrapper">
       <section class="all-cards">
       </section>
     </div>
-    </main>
+  </main>
 </body>
+
 </html>
